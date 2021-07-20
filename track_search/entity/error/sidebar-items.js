@@ -1,0 +1,1 @@
+initSidebarItems({"enum":[["ErrorKind","エラー区分"],["_Error",""]],"struct":[["Error",""]]});

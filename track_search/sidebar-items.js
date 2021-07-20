@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["main","起動メソッド"]],"mod":[["adapter","アダプター層 (Adapter Layer)"],["entity","ドメイン層 (Domain Layer)"],["error",""],["usecase","ユースケース層 (Usecase Layer)"]]});
