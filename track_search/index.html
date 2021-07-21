@@ -1,17 +1,33 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Track Search"><meta name="keywords" content="rust, rustlang, rust-lang, track_search"><title>track_search - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../ayu.css" disabled ><script id="default-settings"></script><script src="../storage.js"></script><script src="../crates.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../track_search/index.html'><div class='logo-container rust-logo'><img src='../rust-logo.png' alt='logo'></div></a><p class="location">Crate track_search</p><div class="block version"><p>Version 0.1.0</p></div><div class="sidebar-elems"><a id="all-types" href="all.html"><p>See all track_search's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#functions">Functions</a></li></ul></div><p class="location"></p><div id="sidebar-vars" data-name="track_search" data-ty="mod" data-relpath="../"></div><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="">track_search</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/track_search/main.rs.html#1-43" title="goto source code">[src]</a></span></h1><div class="docblock"><h1 id="track-search" class="section-header"><a href="#track-search">Track Search</a></h1>
+                <a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Crate <a class="mod" href="">track_search</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../src/track_search/main.rs.html#1-64" title="goto source code">[src]</a></span></h1><div class="docblock"><h1 id="track-search" class="section-header"><a href="#track-search">Track Search</a></h1>
 <p>Rustで作成された、楽曲を検索して情報を提供するWEBアプリケーション</p>
 <p>起動方法や運用などについては
 <a href="https://github.com/grandcolline/track_search/blob/master/README.md">README</a>に、
-アーキテクチャや実装方法などについてはRustDocにドキュメントとしてまとめる。</p>
-<h2 id="アーキテクチャ" class="section-header"><a href="#アーキテクチャ">アーキテクチャ</a></h2>
-<p>4つの層(Layer)から構成され、依存関係は次の図のようになっている。</p>
-<p>TODO</p>
+アーキテクチャや実装方法などについては
+<a href="./">RustDoc</a>
+にドキュメントとしてまとめる。</p>
+<h2 id="-アーキテクチャ" class="section-header"><a href="#-アーキテクチャ">🤖 アーキテクチャ</a></h2>
+<p>5つの層(Layer)から構成される。</p>
+<table><thead><tr><th align="left">Name</th><th align="left">Note</th></tr></thead><tbody>
+<tr><td align="left"><a href="./entity">エンティティ層</a></td><td align="left">ビジネスロジックを定義する層</td></tr>
+<tr><td align="left"><a href="./usecase">ユースケース層</a></td><td align="left">ビジネスフロー/アプリケーションロジックを定義する層</td></tr>
+<tr><td align="left"><a href="./application">アプリケーション層</a></td><td align="left">ユーザとユースケースをつなぐ層</td></tr>
+<tr><td align="left"><a href="./adapter">アダプター層</a></td><td align="left">ユースケース層で定義されたポートの実装を持つ層</td></tr>
+<tr><td align="left"><a href="./driver">ドライバー層</a></td><td align="left">アプリケーションとアダプターの構築を行う層</td></tr>
+</tbody></table>
+<h3 id="依存関係" class="section-header"><a href="#依存関係">依存関係</a></h3>
+<div class="example-wrap"><pre class="rust rust-example-rendered">
+<span class="ident">ENTITY</span> <span class="op">&lt;</span><span class="op">-</span> <span class="ident">USECASE</span> <span class="op">&lt;</span><span class="op">-</span> <span class="ident">APPLICATION</span> <span class="op">/</span> <span class="ident">ADAPTER</span> <span class="op">&lt;</span><span class="op">-</span> <span class="ident">DRIVER</span></pre></div>
+<p>※ アプリケーション層とアダプター層はそれぞれドライバー層から参照され、
+ユースケース層に依存するが、互いには依存し合わない。<br />
+※ 各レイヤーはsrc直下にモジュールとして配置する。<br />
+※ レイヤー内の依存関係は、親モジュールが子モジュールに依存するような関係となる</p>
 </div><h2 id="modules" class="section-header"><a href="#modules">Modules</a></h2>
 <table><tr class="module-item"><td><a class="mod" href="adapter/index.html" title="track_search::adapter mod">adapter</a></td><td class="docblock-short"><p>アダプター層 (Adapter Layer)</p>
-</td></tr><tr class="module-item"><td><a class="mod" href="entity/index.html" title="track_search::entity mod">entity</a></td><td class="docblock-short"><p>ドメイン層 (Domain Layer)</p>
+</td></tr><tr class="module-item"><td><a class="mod" href="application/index.html" title="track_search::application mod">application</a></td><td class="docblock-short"><p>アプリケーション層 (Application Layer)</p>
+</td></tr><tr class="module-item"><td><a class="mod" href="entity/index.html" title="track_search::entity mod">entity</a></td><td class="docblock-short"><p>エンティティ層 (Entity Layer)</p>
 </td></tr><tr class="module-item"><td><a class="mod" href="error/index.html" title="track_search::error mod">error</a></td><td class="docblock-short"></td></tr><tr class="module-item"><td><a class="mod" href="usecase/index.html" title="track_search::usecase mod">usecase</a></td><td class="docblock-short"><p>ユースケース層 (Usecase Layer)</p>
 </td></tr></table><h2 id="functions" class="section-header"><a href="#functions">Functions</a></h2>
 <table><tr class="module-item"><td><a class="fn" href="fn.main.html" title="track_search::main fn">main</a></td><td class="docblock-short"><p>起動メソッド</p>

@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["controller",""],["gateway",""],["logger",""]]});
+initSidebarItems({"mod":[["gateway",""],["logger",""]]});

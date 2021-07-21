@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="ドメイン層 (Domain Layer)"><meta name="keywords" content="rust, rustlang, rust-lang, entity"><title>track_search::entity - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="エンティティ層 (Entity Layer)"><meta name="keywords" content="rust, rustlang, rust-lang, entity"><title>track_search::entity - Rust</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../light.css"  id="themeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css" disabled ><link rel="stylesheet" type="text/css" href="../../ayu.css" disabled ><script id="default-settings"></script><script src="../../storage.js"></script><script src="../../crates.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="icon" type="image/svg+xml" href="../../favicon.svg">
 <link rel="alternate icon" type="image/png" href="../../favicon-16x16.png">
 <link rel="alternate icon" type="image/png" href="../../favicon-32x32.png"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu" role="button">&#9776;</div><a href='../../track_search/index.html'><div class='logo-container rust-logo'><img src='../../rust-logo.png' alt='logo'></div></a><p class="location">Module entity</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#modules">Modules</a></li></ul></div><p class="location"><a href="../index.html">track_search</a></p><div id="sidebar-vars" data-name="entity" data-ty="mod" data-relpath="../"></div><script defer src="../sidebar-items.js"></script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!" aria-haspopup="menu"><img src="../../brush.svg" width="18" height="18" alt="Pick another theme!"></button><div id="theme-choices" role="menu"></div></div><nav class="sub"><form class="search-form"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" disabled autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><button type="button" class="help-button">?</button>
-                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Module <a href="../index.html">track_search</a>::<wbr><a class="mod" href="">entity</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/track_search/entity.rs.html#1-72" title="goto source code">[src]</a></span></h1><div class="docblock"><h1 id="ドメイン層-domain-layer" class="section-header"><a href="#ドメイン層-domain-layer">ドメイン層 (Domain Layer)</a></h1>
+                <a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" height="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class="fqn"><span class="in-band">Module <a href="../index.html">track_search</a>::<wbr><a class="mod" href="">entity</a><button id="copy-path" onclick="copy_path(this)">⎘</button></span><span class="out-of-band"><span id="render-detail"><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span><a class="srclink" href="../../src/track_search/entity.rs.html#1-81" title="goto source code">[src]</a></span></h1><div class="docblock"><h1 id="エンティティ層-entity-layer" class="section-header"><a href="#エンティティ層-entity-layer">エンティティ層 (Entity Layer)</a></h1>
 <p>Enterprise Business Rulesの責務を担当する層。</p>
 <p>「エンティティ(Entity)」と「値オブジェクト(VO)」の
 Structとそれらの振る舞いを定義していく。</p>
@@ -23,7 +23,7 @@ Structとそれらの振る舞いを定義していく。</p>
 <h3 id="参考" class="section-header"><a href="#参考">参考</a></h3>
 <ul>
 <li><a href="https://crieit.net/posts/UML">UMLのクラス図における関係の考察</a></li>
-<li><a href="https://mermaid-js.github.io/mermaid/#/classDiagram"></a></li>
+<li><a href="https://mermaid-js.github.io/mermaid/#/classDiagram">classDiagram</a></li>
 </ul>
 <h2 id="-要素" class="section-header"><a href="#-要素">🌱 要素</a></h2><h3 id="エンティティ-entity" class="section-header"><a href="#エンティティ-entity">エンティティ (Entity)</a></h3>
 <p>属性ではなく同一性によって識別されるStruct。</p>
@@ -32,6 +32,18 @@ Structとそれらの振る舞いを定義していく。</p>
 <li>同じ属性であっても区別される</li>
 <li>同一性により区別される</li>
 </ul>
+<details>
+<summary>これは中身が整形される</summary>
+<ol>
+<li>野菜<strong>A</strong>の皮を剥く。</li>
+<li>乱切りにする。</li>
+<li>調味料<strong>B</strong>と合わせて炒める。
+<ul>
+<li><code>火傷</code>に注意。</li>
+</ul>
+</li>
+</ol>
+</details>
 <h4 id="サンプル実装" class="section-header"><a href="#サンプル実装">サンプル実装</a></h4>
 <div class="example-wrap"><pre class="rust rust-example-rendered">
 <span class="comment">// TODO: サンプル実装</span></pre></div>

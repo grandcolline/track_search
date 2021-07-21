@@ -44,6 +44,27 @@
 <span id="41">41</span>
 <span id="42">42</span>
 <span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="doccomment">//! # Track Search</span>
 <span class="doccomment">//!</span>
@@ -51,14 +72,35 @@
 <span class="doccomment">//!</span>
 <span class="doccomment">//! 起動方法や運用などについては</span>
 <span class="doccomment">//! [README](https://github.com/grandcolline/track_search/blob/master/README.md)に、</span>
-<span class="doccomment">//! アーキテクチャや実装方法などについてはRustDocにドキュメントとしてまとめる。</span>
+<span class="doccomment">//! アーキテクチャや実装方法などについては</span>
+<span class="doccomment">//! [RustDoc](./)</span>
+<span class="doccomment">//! にドキュメントとしてまとめる。</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! ## アーキテクチャ</span>
-<span class="doccomment">//! 4つの層(Layer)から構成され、依存関係は次の図のようになっている。</span>
+<span class="doccomment">//! ## 🤖 アーキテクチャ</span>
 <span class="doccomment">//!</span>
-<span class="doccomment">//! TODO</span>
+<span class="doccomment">//! 5つの層(Layer)から構成される。</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! | Name                        | Note                                                |</span>
+<span class="doccomment">//! |:----------------------------|:----------------------------------------------------|</span>
+<span class="doccomment">//! | [エンティティ層](./entity)  | ビジネスロジックを定義する層                        |</span>
+<span class="doccomment">//! | [ユースケース層](./usecase) | ビジネスフロー/アプリケーションロジックを定義する層 |</span>
+<span class="doccomment">//! | [アプリケーション層](./application) | ユーザとユースケースをつなぐ層              |</span>
+<span class="doccomment">//! | [アダプター層](./adapter)   | ユースケース層で定義されたポートの実装を持つ層      |</span>
+<span class="doccomment">//! | [ドライバー層](./driver)    | アプリケーションとアダプターの構築を行う層          |</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ### 依存関係</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! ENTITY &lt;- USECASE &lt;- APPLICATION / ADAPTER &lt;- DRIVER</span>
+<span class="doccomment">//! ```</span>
+<span class="doccomment">//! ※ アプリケーション層とアダプター層はそれぞれドライバー層から参照され、</span>
+<span class="doccomment">//! ユースケース層に依存するが、互いには依存し合わない。  </span>
+<span class="doccomment">//! ※ 各レイヤーはsrc直下にモジュールとして配置する。  </span>
+<span class="doccomment">//! ※ レイヤー内の依存関係は、親モジュールが子モジュールに依存するような関係となる  </span>
+<span class="doccomment">//!</span>
 
 <span class="kw">mod</span> <span class="ident">adapter</span>;
+<span class="kw">mod</span> <span class="ident">application</span>;
 <span class="kw">mod</span> <span class="ident">entity</span>;
 <span class="kw">mod</span> <span class="ident">error</span>;
 <span class="kw">mod</span> <span class="ident">usecase</span>;
@@ -82,7 +124,7 @@
     <span class="comment">// }</span>
 
     <span class="comment">// VIEWアプリケーションの場合</span>
-    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">adapter::controller::view::build</span>() {
+    <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span> <span class="ident">application::view::build</span>() {
         <span class="macro">error!</span>(<span class="string">&quot;ERROR: {:?}!&quot;</span>, <span class="ident">e</span>);
     }
 
