@@ -1,4 +1,4 @@
-use crate::adapter::controller::rest::Container;
+use crate::application::rest::Container;
 use crate::entity::track::{TrackEntity, TrackId};
 use crate::usecase::track_usecase::TrackUsecase;
 use actix_web::{web, HttpResponse, Responder};
