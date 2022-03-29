@@ -10,8 +10,8 @@ https://grandcolline.github.io/track_search/track_search/
 
 |name|version|
 |:-:|:--|
-|Rust|1.53.0|
-|Cargo|1.53.0|
+|Rust|1.54.0|
+|Cargo|1.54.0|
 
 ```bash
 cargo run

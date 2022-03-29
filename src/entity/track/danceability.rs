@@ -20,6 +20,7 @@ impl TryFrom<u8> for Danceability {
         } else {
             Err(ErrorKind::TypeError)
         }
+
     }
 }
 
@@ -27,4 +28,5 @@ impl fmt::Display for Danceability {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.0)
     }
+
 }

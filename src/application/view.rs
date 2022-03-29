@@ -15,8 +15,8 @@ pub async fn build() -> Result<(), actix_web::Error> {
     HttpServer::new(move || {
         App::new()
             .data(Container {
-                track_repository: TrackGateway {},
-                logger: Logger {},
+                track_repository: TrackGateway::new(),
+                logger: Logger::new("XXXXXXXXXXX".to_string()),
             })
             .service(search_consroller)
             .service(track_controller)

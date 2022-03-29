@@ -1,18 +1,28 @@
-use crate::usecase::log::log::Log;
+use crate::usecase::log::{Log};
 
-#[derive(Debug, Copy, Clone)]
-pub struct Logger;
+#[derive(Debug, Clone)]
+pub struct Logger{
+    id: String
+}
+
+impl Logger {
+    pub fn new(s: String) -> Self {
+        Self {
+            id: s
+        }
+    }
+}
 
 impl Log for Logger {
     fn debug(&self, s: String) {
-        println!("{} {}", "[DEBUG]", s);
+        println!("{} {} {}", "[DEBUG]", self.id, s);
     }
 
     fn info(&self, s: String) {
-        println!("{} {}", "[INFO]", s);
+        println!("{} {} {}", "[INFO]", self.id, s);
     }
 
     fn error(&self, s: String) {
-        println!("{} {}", "[ERROR]", s);
+        println!("{} {} {}", "[ERROR]", self.id, s);
     }
 }

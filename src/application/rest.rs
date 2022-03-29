@@ -13,7 +13,7 @@ pub async fn build() -> std::io::Result<()> {
         App::new()
             .data(Container {
                 track_port: TrackGateway {},
-                logger: Logger {},
+                logger: Logger::new("xxxxxxxxxx".to_string()),
             })
             // .wrap(Logger::default())
             .configure(routes)

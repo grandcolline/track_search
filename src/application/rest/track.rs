@@ -7,7 +7,7 @@ use std::convert::TryFrom;
 
 pub async fn track(data: web::Data<Container>) -> impl Responder {
     // FIXME
-    let id = match TrackId::try_from("aaaaaaaaaaaaaaa".to_string()) {
+    let id = match TrackId::try_from("aaaaaaaaaaaaaaa".into()) {
         Ok(id) => id,
         Err(_) => return HttpResponse::InternalServerError().json(""),
     };

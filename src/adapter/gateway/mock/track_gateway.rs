@@ -10,6 +10,12 @@ use std::convert::TryFrom;
 #[derive(Debug, Copy, Clone)]
 pub struct TrackGateway;
 
+impl TrackGateway {
+    pub fn new() -> Self {
+        Self{}
+    }
+}
+
 #[async_trait(?Send)]
 impl TrackRepository for TrackGateway {
     async fn find_by_id(&self, id: TrackId) -> Result<TrackEntity, ErrorKind> {

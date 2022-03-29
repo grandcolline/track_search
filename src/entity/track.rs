@@ -5,24 +5,6 @@
 //! [モデル図](./fn._diagram.html)
 //!
 
-// Value Object
-mod acousticness;
-mod analysis;
-mod artist;
-mod danceability;
-mod energy;
-mod image;
-mod instrumentalness;
-mod liveness;
-mod popularity;
-mod speechiness;
-mod track_id;
-mod track_title;
-mod valence;
-
-// Entity
-mod track_entity;
-
 #[cfg_attr(doc, aquamarine::aquamarine)]
 /// # トラック集約 ドメインモデル図
 ///
@@ -52,6 +34,25 @@ mod track_entity;
 /// ```
 fn _diagram() {}
 
+// Value Object
+mod acousticness;
+mod analysis;
+mod artist;
+mod danceability;
+mod energy;
+mod image;
+mod instrumentalness;
+mod liveness;
+mod popularity;
+mod speechiness;
+mod track_id;
+mod track_title;
+mod valence;
+
+// Entity
+mod track_entity;
+
+// use
 pub use acousticness::*;
 pub use analysis::*;
 pub use artist::*;
