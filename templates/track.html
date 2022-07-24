@@ -93,7 +93,7 @@
 			font-size: 1.5em;
 		}
 	</style>
-	<title>{{ title }}</title>
+	<title>{{ track.title }}</title>
 </head>
 <body>
 	<!-- HEADER -->
@@ -105,12 +105,12 @@
 	<div class="container maxWidth">
 		<div class="row">
 			<div class="col-sm-4">
-				<img src="{{ image_url }}" class="img-fluid mx-auto d-block" \>
+				<img src="{{ track.image_url }}" class="img-fluid mx-auto d-block" \>
 			</div>
 			<div class="col-sm-8">
-				<h1>{{ title }}</h1>
-				<p>by {{ artist }}</p>
-				<a href="https://open.spotify.com/track/{{ id }}" type="button" class="btn btn-spotify">
+				<h1>{{ track.title }}</h1>
+				<p>by {{ track.artist }}</p>
+				<a href="https://open.spotify.com/track/{{ track.id }}" type="button" class="btn btn-spotify">
 					Open Spotify
 				</a>
 			</div>
@@ -120,25 +120,25 @@
 			<div class="col-sm-3 col-6">
 				<h3>Time</h3>
 				<div class="pickup">
-					{{ time }}
+					{{ track.time }}
 				</div>
 			</div>
 			<div class="col-sm-3 col-6">
 				<h3>BPM</h3>
 				<div class="pickup">
-					{{ bpm }}
+					{{ track.bpm }}
 				</div>
 			</div>
 			<div class="col-sm-3 col-6">
 				<h3>Key</h3>
 				<div class="pickup">
-					{{ key }}
+					{{ track.key }}
 				</div>
 			</div>
 			<div class="col-sm-3 col-6">
 				<h3>Mode</h3>
 				<div class="pickup">
-					{{ mode }}
+					{{ track.mode }}
 				</div>
 			</div>
 		</div>
@@ -203,14 +203,14 @@
 			}
 		}
 		window.onload = function(){
-			startbar(document.getElementById("popularity"), {{ popularity }});
-			startbar(document.getElementById("danceability"), {{ danceability }});
-			startbar(document.getElementById("energy"), {{ energy }});
-			startbar(document.getElementById("valence"), {{ valence }});
-			startbar(document.getElementById("acousticness"), {{ acousticness }});
-			startbar(document.getElementById("instrumentalness"), {{ instrumentalness }});
-			startbar(document.getElementById("liveness"), {{ liveness }});
-			startbar(document.getElementById("speechiness"), {{ speechiness }});
+			startbar(document.getElementById("popularity"), {{ track.popularity }});
+			startbar(document.getElementById("danceability"), {{ track.danceability }});
+			startbar(document.getElementById("energy"), {{ track.energy }});
+			startbar(document.getElementById("valence"), {{ track.valence }});
+			startbar(document.getElementById("acousticness"), {{ track.acousticness }});
+			startbar(document.getElementById("instrumentalness"), {{ track.instrumentalness }});
+			startbar(document.getElementById("liveness"), {{ track.liveness }});
+			startbar(document.getElementById("speechiness"), {{ track.speechiness }});
 		}
 	</script>
 	<!-- Option 2: Separate Popper and Bootstrap JS -->

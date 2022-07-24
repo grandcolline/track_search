@@ -1,40 +1,38 @@
-use crate::adapter::gateway::mock::track_gateway::TrackGateway; // FIXME: ここでこれを参照するのはマジでクソ。子宮から人生やり直すレベル。
-use crate::adapter::logger::text::logger::Logger; // FIXME: ここでこれを参照するのはマジでクソ。子宮から人生やり直すレベル。
+use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
+use serde::Serialize;
+use tera::{Context, Tera};
 
-// use crate::usecase::repository::track_repository::TrackRepository;
-mod search;
 mod track;
-use actix_web::{App, HttpServer};
-use search::search_consroller;
 use track::track_controller;
 
-// FIXME: ここの関数はdriver層に移動させる？
-#[actix_rt::main]
-pub async fn build() -> Result<(), actix_web::Error> {
-    // TODO: moveを確認
-    HttpServer::new(move || {
-        App::new()
-            .data(Container {
-                track_repository: TrackGateway::new(),
-                logger: Logger::new("XXXXXXXXXXX".to_string()),
-            })
-            .service(search_consroller)
-            .service(track_controller)
-    })
-    .bind("0.0.0.0:3000")?
-    .run()
-    .await?;
-    Ok(())
+#[derive(Serialize)]
+pub struct Greet {
+    name: String,
 }
 
-// pub struct RepositoryContainer<T>
-// where
-//     T: TrackRepository,
-// {
-//     track_repository: T,
-// }
+#[get("/")]
+async fn healthcheck() -> impl Responder {
+    format!("server running!")
+}
 
-pub struct Container {
-    track_repository: TrackGateway,
-    logger: Logger,
+#[actix_web::main]
+pub async fn main() -> std::io::Result<()> {
+    let tera = match Tera::new("templates/**/*.html") {
+        Ok(t) => t,
+        Err(e) => {
+            println!("Parsing error(s): {}", e);
+            std::process::exit(1);
+        }
+    };
+    // tera.autoescape_on(vec![]); // disable auto-escaping
+
+    HttpServer::new(move || {
+        App::new()
+            .app_data(web::Data::new(tera.clone()))
+            .service(healthcheck)
+            .service(track_controller)
+    })
+    .bind(("127.0.0.1", 8080))?
+    .run()
+    .await
 }

@@ -1,17 +1,15 @@
-//! # エネルギー度 - VO
-//!
-//! 楽曲のエネルギーの数値。  
-//! 0 - 100の値をとり、0が低く100が高い。
-//!
-//! fast, loud, noisyであれば100に近づく
 use crate::entity::error::ErrorKind;
 use std::convert::TryFrom;
 use std::fmt;
 
-#[derive(Debug, Clone, PartialEq, Eq)]
-pub struct Energy(u8);
+// # スコア - VO
+//
+// 曲の性質の数値  
+// 0 - 100の値をとり、0が低く100が高い。
+#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+pub struct Score(u8);
 
-impl TryFrom<u8> for Energy {
+impl TryFrom<u8> for Score {
     type Error = ErrorKind;
 
     fn try_from(u: u8) -> Result<Self, Self::Error> {
@@ -23,7 +21,7 @@ impl TryFrom<u8> for Energy {
     }
 }
 
-impl fmt::Display for Energy {
+impl fmt::Display for Score {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", self.0)
     }
