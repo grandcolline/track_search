@@ -1,11 +1,13 @@
+use std::sync::Arc;
+
 use domain::model::error::ErrorKind;
 use domain::model::track_entity::TrackEntity;
 use domain::port::log::Log;
 use domain::port::repository::TrackRepository;
 
 pub struct TrackUsecase<Repository: TrackRepository, Logger: Log> {
-    pub repo: Repository,
-    pub log: Logger,
+    pub repo: Arc<Repository>,
+    pub log: Arc<Logger>,
 }
 
 impl<Repo: TrackRepository, Logger: Log> TrackUsecase<Repo, Logger> {

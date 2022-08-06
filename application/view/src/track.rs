@@ -1,6 +1,5 @@
 use std::convert::From;
 
-use domain::model::score::Score;
 use domain::model::track_entity::TrackEntity;
 use usecase::track_usecase::TrackUsecase;
 
@@ -58,38 +57,6 @@ impl From<TrackEntity> for TrackResponse {
 #[get("/track/{id}")]
 async fn track_controller(id: web::Path<String>, tera: web::Data<Tera>) -> impl Responder {
     let mut context = Context::new();
-
-    // let popularity = match Score::try_from(58) {
-    //     Ok(t) => t,
-    //     Err(_) => {
-    //         return HttpResponse::InternalServerError()
-    //             .content_type("text/html")
-    //             .body("Server Error");
-    //     }
-    // };
-
-    // let ent = TrackEntity::from(
-    //     id.to_string(),
-    //     "クロノスタシス".to_string(),
-    //     "きのこ帝国".to_string(),
-    //     "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".to_string(),
-    //     popularity.clone(),
-    //     popularity.clone(),
-    //     popularity.clone(),
-    //     popularity.clone(),
-    //     popularity.clone(),
-    //     popularity.clone(),
-    //     popularity.clone(),
-    //     popularity.clone(),
-    //     // 58,
-    //     // 46.try_into()?,
-    //     // 75,
-    //     // 70,
-    //     // 3,
-    //     // 1,
-    //     // 13,
-    //     // 3,
-    // );
 
     let uc = TrackUsecase {
         repo: TrackGateway::new(),

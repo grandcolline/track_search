@@ -1,10 +1,19 @@
 use actix_web::{get, web, App, HttpServer, Responder};
 use tera::Tera;
 
+// use domain::port::log::Log;
+// use domain::port::repository::TrackRepository;
+
 mod track;
 use track::track_controller;
 mod search;
 use search::search_controller;
+
+// pub struct Modules {
+//   track_repository: TrackRepository,
+//   log: Log,
+// }
+
 
 #[get("/")]
 async fn healthcheck() -> impl Responder {
