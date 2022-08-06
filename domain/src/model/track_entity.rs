@@ -1,4 +1,4 @@
-use super::*;
+use crate::model::score::Score;
 
 // # TrackEntity
 //

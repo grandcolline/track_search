@@ -1,14 +1,10 @@
-use actix_web::{get, web, App, HttpResponse, HttpServer, Responder};
-use serde::Serialize;
-use tera::{Context, Tera};
+use actix_web::{get, web, App, HttpServer, Responder};
+use tera::Tera;
 
 mod track;
 use track::track_controller;
-
-#[derive(Serialize)]
-pub struct Greet {
-    name: String,
-}
+mod search;
+use search::search_controller;
 
 #[get("/")]
 async fn healthcheck() -> impl Responder {
@@ -17,7 +13,8 @@ async fn healthcheck() -> impl Responder {
 
 #[actix_web::main]
 pub async fn main() -> std::io::Result<()> {
-    let tera = match Tera::new("templates/**/*.html") {
+    let template_file = "application/view/templates/**/*.html"; // FIXME
+    let tera = match Tera::new(template_file) {
         Ok(t) => t,
         Err(e) => {
             println!("Parsing error(s): {}", e);
@@ -31,6 +28,7 @@ pub async fn main() -> std::io::Result<()> {
             .app_data(web::Data::new(tera.clone()))
             .service(healthcheck)
             .service(track_controller)
+            .service(search_controller)
     })
     .bind(("127.0.0.1", 8080))?
     .run()

@@ -1,5 +1,4 @@
-mod application;
-mod entity;
+use view;
 
 #[macro_use]
 extern crate log;
@@ -15,7 +14,7 @@ fn main() {
     // let sys = actix::System::new();
 
     // VIEWアプリケーションの場合
-    if let Err(e) = application::view::main() {
+    if let Err(e) = view::main() {
         error!("ERROR: {:?}!", e);
     }
 
