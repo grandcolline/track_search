@@ -1,8 +1,15 @@
-use actix_web::{get, web, HttpResponse, Responder};
+use std::convert::From;
+
 use domain::model::score::Score;
 use domain::model::track_entity::TrackEntity;
+use usecase::track_usecase::TrackUsecase;
+
+// FIXME
+use mock_gateway::TrackGateway;
+use text_logger::Logger;
+
+use actix_web::{get, web, HttpResponse, Responder};
 use serde::Serialize;
-use std::convert::From;
 use tera::{Context, Tera};
 
 #[derive(Serialize)]
@@ -52,7 +59,44 @@ impl From<TrackEntity> for TrackResponse {
 async fn track_controller(id: web::Path<String>, tera: web::Data<Tera>) -> impl Responder {
     let mut context = Context::new();
 
-    let popularity = match Score::try_from(58) {
+    // let popularity = match Score::try_from(58) {
+    //     Ok(t) => t,
+    //     Err(_) => {
+    //         return HttpResponse::InternalServerError()
+    //             .content_type("text/html")
+    //             .body("Server Error");
+    //     }
+    // };
+
+    // let ent = TrackEntity::from(
+    //     id.to_string(),
+    //     "クロノスタシス".to_string(),
+    //     "きのこ帝国".to_string(),
+    //     "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".to_string(),
+    //     popularity.clone(),
+    //     popularity.clone(),
+    //     popularity.clone(),
+    //     popularity.clone(),
+    //     popularity.clone(),
+    //     popularity.clone(),
+    //     popularity.clone(),
+    //     popularity.clone(),
+    //     // 58,
+    //     // 46.try_into()?,
+    //     // 75,
+    //     // 70,
+    //     // 3,
+    //     // 1,
+    //     // 13,
+    //     // 3,
+    // );
+
+    let uc = TrackUsecase {
+        repo: TrackGateway::new(),
+        log: Logger::new("xxxxxxxx".into()),
+    };
+
+    let ent = match uc.get_track(id.to_string()).await {
         Ok(t) => t,
         Err(_) => {
             return HttpResponse::InternalServerError()
@@ -60,29 +104,6 @@ async fn track_controller(id: web::Path<String>, tera: web::Data<Tera>) -> impl 
                 .body("Server Error");
         }
     };
-
-    let ent = TrackEntity::from(
-        id.to_string(),
-        "クロノスタシス".to_string(),
-        "きのこ帝国".to_string(),
-        "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".to_string(),
-        popularity.clone(),
-        popularity.clone(),
-        popularity.clone(),
-        popularity.clone(),
-        popularity.clone(),
-        popularity.clone(),
-        popularity.clone(),
-        popularity.clone(),
-        // 58,
-        // 46.try_into()?,
-        // 75,
-        // 70,
-        // 3,
-        // 1,
-        // 13,
-        // 3,
-    );
 
     context.insert("track", &TrackResponse::from(ent));
     let resp = match tera.render("track.html", &context) {

@@ -1,6 +1,8 @@
 [workspace]
 members = [
 	"application/view",
+  "adapter/mock-gateway",
+  "adapter/text-logger",
 	"driver",
 	"domain",
   "usecase",

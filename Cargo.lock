@@ -844,6 +844,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "mock-gateway"
+version = "0.1.0"
+dependencies = [
+ "async-trait",
+ "domain",
+]
+
+[[package]]
 name = "num-integer"
 version = "0.1.45"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1296,6 +1304,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "text-logger"
+version = "0.1.0"
+dependencies = [
+ "domain",
+]
+
+[[package]]
 name = "thread_local"
 version = "1.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1515,8 +1530,11 @@ dependencies = [
  "actix-web",
  "domain",
  "log",
+ "mock-gateway",
  "serde",
  "tera",
+ "text-logger",
+ "usecase",
 ]
 
 [[package]]
