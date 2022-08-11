@@ -14,7 +14,7 @@ impl TrackGateway {
     }
 }
 
-#[async_trait(?Send)]
+#[async_trait]
 impl TrackRepository for TrackGateway {
     async fn find_by_id(&self, id: String) -> Result<TrackEntity, ErrorKind> {
         Ok(TrackEntity::from(

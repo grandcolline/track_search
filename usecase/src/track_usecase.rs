@@ -1,16 +1,32 @@
-use std::sync::Arc;
+// use std::sync::Arc;
 
 use domain::model::error::ErrorKind;
 use domain::model::track_entity::TrackEntity;
 use domain::port::log::Log;
 use domain::port::repository::TrackRepository;
 
+#[derive(Clone)]
 pub struct TrackUsecase<Repository: TrackRepository, Logger: Log> {
-    pub repo: Arc<Repository>,
-    pub log: Arc<Logger>,
+    pub repo: Repository,
+    pub log: Logger,
 }
 
+// #[derive(Clone)]
+// pub struct TrackUsecase<Repository: TrackRepository, Logger: Log> {
+//     pub repo: Arc<Repository>,
+//     pub log: Arc<Logger>,
+// }
+
+// #[derive(Clone)]
+// pub struct TrackUsecase {
+//     // pub repo: Arc<TrackRepository>,
+//     // pub log: Arc<Log>,
+//     pub repo: Arc<dyn TrackRepository + Sync + Send>,
+//     pub log: Arc<dyn Log + Sync + Send>,
+// }
+
 impl<Repo: TrackRepository, Logger: Log> TrackUsecase<Repo, Logger> {
+// impl TrackUsecase {
     #[cfg_attr(doc, aquamarine::aquamarine)]
     /// # 楽曲を取得する
     ///
