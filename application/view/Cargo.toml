@@ -11,6 +11,7 @@ tera = "1"      # html template
 log = "0.4.17"
 serde = { version = "1.0", features = ["derive"] }
 domain = { path = "../../domain" }
+port = { path = "../../port" }
 usecase = { path = "../../usecase" }
 text-logger = { path = "../../adapter/text-logger" }
 mock-gateway = { path = "../../adapter/mock-gateway" }

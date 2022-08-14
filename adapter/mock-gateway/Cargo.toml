@@ -7,5 +7,6 @@ edition = "2021"
 
 [dependencies]
 domain = { path = "../../domain" }
+port = { path = "../../port" }
 async-trait = "0.1.50"
 

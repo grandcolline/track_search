@@ -4,6 +4,7 @@ members = [
   "adapter/mock-gateway",
   "adapter/text-logger",
 	"driver",
+	"port",
 	"domain",
   "usecase",
 ]

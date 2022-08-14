@@ -1,4 +1,4 @@
-use domain::port::log::Log;
+use port::log::Log;
 
 #[derive(Debug, Clone)]
 pub struct Logger {

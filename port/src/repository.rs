@@ -1,5 +1,5 @@
-use crate::model::error::ErrorKind;
-use crate::model::track_entity::TrackEntity;
+use domain::model::error::ErrorKind;
+use domain::model::track_entity::TrackEntity;
 
 use async_trait::async_trait;
 

@@ -2,8 +2,8 @@ use std::sync::Arc;
 
 use domain::model::error::ErrorKind;
 use domain::model::track_entity::TrackEntity;
-use domain::port::log::Log;
-use domain::port::repository::TrackRepository;
+use port::log::Log;
+use port::repository::TrackRepository;
 
 // #[derive(Clone)]
 // pub struct TrackUsecase<Repository: TrackRepository, Logger: Log> {
