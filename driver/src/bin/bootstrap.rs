@@ -1,9 +1,6 @@
+use driver::config;
 use port::Container;
-use std::sync::Arc;
 use view;
-
-use mock::TrackGateway;
-use simple::Logger;
 
 #[macro_use]
 extern crate log;
@@ -17,11 +14,10 @@ fn main() {
     // env_logger::init();
 
     // let sys = actix::System::new();
-    //
 
     let container = Container {
-        track_repository: Arc::new(TrackGateway::new()),
-        log: Arc::new(Logger::new("xxxxxxxx".into())),
+        repository_container: config::repository::init(),
+        log_container: config::log::init(),
     };
 
     // VIEWアプリケーションの場合

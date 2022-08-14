@@ -5,10 +5,17 @@ use crate::log::Log;
 use crate::repository::TrackRepository;
 
 #[derive(Clone)]
-pub struct Container {
-    // Repository
+pub struct RepositoryContainer {
     pub track_repository: Arc<dyn TrackRepository + Sync + Send>,
+}
 
-    // Log
+#[derive(Clone)]
+pub struct LogContainer {
     pub log: Arc<dyn Log + Sync + Send>,
+}
+
+#[derive(Clone)]
+pub struct Container {
+    pub repository_container: RepositoryContainer,
+    pub log_container: LogContainer,
 }

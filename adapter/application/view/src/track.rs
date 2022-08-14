@@ -60,8 +60,8 @@ async fn track_controller(
     let mut context = Context::new();
 
     let uc = TrackUsecase {
-        repo: container.track_repository.clone(),
-        log: container.log.clone(),
+        repo: container.repository_container.track_repository.clone(),
+        log: container.log_container.log.clone(),
     };
 
     let ent = match uc.get_track(id.to_string()).await {
