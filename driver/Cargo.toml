@@ -9,4 +9,5 @@ edition = "2021"
 view = { path = "../adapter/application/view" }
 simple = { path = "../adapter/log/simple" }
 mock = { path = "../adapter/repository/mock" }
+port = { path = "../port" }
 log = "0.4.17"

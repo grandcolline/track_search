@@ -1,3 +1,4 @@
+use port::Container;
 use std::sync::Arc;
 use view;
 
@@ -18,13 +19,13 @@ fn main() {
     // let sys = actix::System::new();
     //
 
-    let modules = view::Modules {
+    let container = Container {
         track_repository: Arc::new(TrackGateway::new()),
         log: Arc::new(Logger::new("xxxxxxxx".into())),
     };
 
     // VIEWアプリケーションの場合
-    if let Err(e) = view::main(modules) {
+    if let Err(e) = view::main(container) {
         error!("ERROR: {:?}!", e);
     }
 

@@ -1,10 +1,11 @@
 use std::sync::Arc;
 
-use port::log::Log;
-use port::repository::TrackRepository;
+// FIXME: crate内の参照の仕方ってこれでいいんだっけ？
+use crate::log::Log;
+use crate::repository::TrackRepository;
 
 #[derive(Clone)]
-pub struct Modules {
+pub struct Container {
     // Repository
     pub track_repository: Arc<dyn TrackRepository + Sync + Send>,
 

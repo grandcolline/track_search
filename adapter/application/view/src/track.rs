@@ -1,9 +1,8 @@
 use std::convert::From;
 
 use entity::model::track_entity::TrackEntity;
+use port::Container;
 use usecase::track_usecase::TrackUsecase;
-
-use crate::modules::Modules;
 
 use actix_web::{get, web, HttpResponse, Responder};
 use serde::Serialize;
@@ -56,13 +55,13 @@ impl From<TrackEntity> for TrackResponse {
 async fn track_controller(
     id: web::Path<String>,
     tera: web::Data<Tera>,
-    modules: web::Data<Modules>,
+    container: web::Data<Container>,
 ) -> impl Responder {
     let mut context = Context::new();
 
     let uc = TrackUsecase {
-        repo: modules.track_repository.clone(),
-        log: modules.log.clone(),
+        repo: container.track_repository.clone(),
+        log: container.log.clone(),
     };
 
     let ent = match uc.get_track(id.to_string()).await {

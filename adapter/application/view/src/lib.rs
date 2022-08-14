@@ -1,12 +1,12 @@
 use actix_web::{get, web, App, HttpServer, Responder};
 use tera::Tera;
 
+use port::Container;
+
 mod track;
 use track::track_controller;
 mod search;
 use search::search_controller;
-mod modules;
-pub use modules::Modules;
 
 #[get("/")]
 async fn healthcheck() -> impl Responder {
@@ -14,8 +14,8 @@ async fn healthcheck() -> impl Responder {
 }
 
 #[actix_web::main]
-pub async fn main(modules: Modules) -> std::io::Result<()> {
-    let template_file = "application/view/templates/**/*.html"; // FIXME
+pub async fn main(container: Container) -> std::io::Result<()> {
+    let template_file = "adapter/application/view/templates/**/*.html"; // FIXME
     let tera = match Tera::new(template_file) {
         Ok(t) => t,
         Err(e) => {
@@ -28,7 +28,7 @@ pub async fn main(modules: Modules) -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(tera.clone()))
-            .app_data(web::Data::new(modules.clone()))
+            .app_data(web::Data::new(container.clone()))
             .service(healthcheck)
             .service(track_controller)
             .service(search_controller)
