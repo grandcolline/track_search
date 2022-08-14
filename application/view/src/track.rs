@@ -1,6 +1,6 @@
 use std::convert::From;
 
-use domain::model::track_entity::TrackEntity;
+use entity::model::track_entity::TrackEntity;
 use usecase::track_usecase::TrackUsecase;
 
 use crate::modules::Modules;

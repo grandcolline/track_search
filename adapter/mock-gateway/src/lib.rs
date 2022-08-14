@@ -1,6 +1,6 @@
-use domain::model::error::ErrorKind;
-use domain::model::score::Score;
-use domain::model::track_entity::TrackEntity;
+use entity::model::error::ErrorKind;
+use entity::model::score::Score;
+use entity::model::track_entity::TrackEntity;
 use port::repository::TrackRepository;
 
 use async_trait::async_trait;

@@ -1,4 +1,8 @@
+use std::sync::Arc;
 use view;
+
+use mock_gateway::TrackGateway;
+use text_logger::Logger;
 
 #[macro_use]
 extern crate log;
@@ -12,9 +16,15 @@ fn main() {
     // env_logger::init();
 
     // let sys = actix::System::new();
+    //
+
+    let modules = view::Modules {
+        track_repository: Arc::new(TrackGateway::new()),
+        log: Arc::new(Logger::new("xxxxxxxx".into())),
+    };
 
     // VIEWアプリケーションの場合
-    if let Err(e) = view::main() {
+    if let Err(e) = view::main(modules) {
         error!("ERROR: {:?}!", e);
     }
 

@@ -5,6 +5,6 @@ members = [
   "adapter/text-logger",
 	"driver",
 	"port",
-	"domain",
+	"entity",
   "usecase",
 ]

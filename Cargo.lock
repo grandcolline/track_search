@@ -481,14 +481,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "domain"
-version = "0.1.0"
-
-[[package]]
 name = "driver"
 version = "0.1.0"
 dependencies = [
  "log",
+ "mock-gateway",
+ "text-logger",
  "view",
 ]
 
@@ -500,6 +498,10 @@ checksum = "9852635589dc9f9ea1b6fe9f05b50ef208c85c834a562f0c6abb1c475736ec2b"
 dependencies = [
  "cfg-if",
 ]
+
+[[package]]
+name = "entity"
+version = "0.1.0"
 
 [[package]]
 name = "fake-simd"
@@ -845,7 +847,7 @@ name = "mock-gateway"
 version = "0.1.0"
 dependencies = [
  "async-trait",
- "domain",
+ "entity",
  "port",
 ]
 
@@ -1042,7 +1044,7 @@ name = "port"
 version = "0.1.0"
 dependencies = [
  "async-trait",
- "domain",
+ "entity",
 ]
 
 [[package]]
@@ -1313,7 +1315,6 @@ dependencies = [
 name = "text-logger"
 version = "0.1.0"
 dependencies = [
- "domain",
  "port",
 ]
 
@@ -1521,7 +1522,7 @@ dependencies = [
 name = "usecase"
 version = "0.1.0"
 dependencies = [
- "domain",
+ "entity",
  "port",
 ]
 
@@ -1536,13 +1537,11 @@ name = "view"
 version = "0.1.0"
 dependencies = [
  "actix-web",
- "domain",
+ "entity",
  "log",
- "mock-gateway",
  "port",
  "serde",
  "tera",
- "text-logger",
  "usecase",
 ]
 

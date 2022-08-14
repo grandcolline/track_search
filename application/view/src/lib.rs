@@ -1,16 +1,12 @@
 use actix_web::{get, web, App, HttpServer, Responder};
-use std::sync::Arc;
 use tera::Tera;
-
-use mock_gateway::TrackGateway;
-use text_logger::Logger;
 
 mod track;
 use track::track_controller;
 mod search;
 use search::search_controller;
 mod modules;
-use modules::Modules;
+pub use modules::Modules;
 
 #[get("/")]
 async fn healthcheck() -> impl Responder {
@@ -18,7 +14,7 @@ async fn healthcheck() -> impl Responder {
 }
 
 #[actix_web::main]
-pub async fn main() -> std::io::Result<()> {
+pub async fn main(modules: Modules) -> std::io::Result<()> {
     let template_file = "application/view/templates/**/*.html"; // FIXME
     let tera = match Tera::new(template_file) {
         Ok(t) => t,
@@ -28,11 +24,6 @@ pub async fn main() -> std::io::Result<()> {
         }
     };
     // tera.autoescape_on(vec![]); // disable auto-escaping
-
-    let modules = Modules {
-        track_repository: Arc::new(TrackGateway::new()),
-        log: Arc::new(Logger::new("xxxxxxxx".into())),
-    };
 
     HttpServer::new(move || {
         App::new()

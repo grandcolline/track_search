@@ -7,4 +7,6 @@ edition = "2021"
 
 [dependencies]
 view = { path = "../application/view" }
+text-logger = { path = "../adapter/text-logger" }
+mock-gateway = { path = "../adapter/mock-gateway" }
 log = "0.4.17"
