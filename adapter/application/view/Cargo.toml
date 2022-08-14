@@ -10,7 +10,7 @@ actix-web = "4" # web framework
 tera = "1"      # html template
 log = "0.4.17"
 serde = { version = "1.0", features = ["derive"] }
-entity = { path = "../../entity" }
-port = { path = "../../port" }
-usecase = { path = "../../usecase" }
+entity = { path = "../../../entity" }
+port = { path = "../../../port" }
+usecase = { path = "../../../usecase" }
 

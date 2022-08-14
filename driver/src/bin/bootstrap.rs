@@ -1,8 +1,8 @@
 use std::sync::Arc;
 use view;
 
-use mock_gateway::TrackGateway;
-use text_logger::Logger;
+use mock::TrackGateway;
+use simple::Logger;
 
 #[macro_use]
 extern crate log;

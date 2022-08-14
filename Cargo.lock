@@ -485,8 +485,8 @@ name = "driver"
 version = "0.1.0"
 dependencies = [
  "log",
- "mock-gateway",
- "text-logger",
+ "mock",
+ "simple",
  "view",
 ]
 
@@ -843,7 +843,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "mock-gateway"
+name = "mock"
 version = "0.1.0"
 dependencies = [
  "async-trait",
@@ -1239,6 +1239,13 @@ dependencies = [
 ]
 
 [[package]]
+name = "simple"
+version = "0.1.0"
+dependencies = [
+ "port",
+]
+
+[[package]]
 name = "siphasher"
 version = "0.3.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1309,13 +1316,6 @@ dependencies = [
  "serde_json",
  "slug",
  "unic-segment",
-]
-
-[[package]]
-name = "text-logger"
-version = "0.1.0"
-dependencies = [
- "port",
 ]
 
 [[package]]

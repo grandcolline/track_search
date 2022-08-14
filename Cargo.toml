@@ -1,8 +1,8 @@
 [workspace]
 members = [
-	"application/view",
-  "adapter/mock-gateway",
-  "adapter/text-logger",
+	"adapter/application/view",
+  "adapter/repository/mock",
+  "adapter/log/simple",
 	"driver",
 	"port",
 	"entity",
