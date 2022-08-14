@@ -1,5 +1,4 @@
 use std::convert::From;
-// use std::sync::Arc;
 
 use domain::model::track_entity::TrackEntity;
 use usecase::track_usecase::TrackUsecase;
@@ -54,17 +53,17 @@ impl From<TrackEntity> for TrackResponse {
 }
 
 #[get("/track/{id}")]
-async fn track_controller(id: web::Path<String>, tera: web::Data<Tera>, modules: web::Data<Modules>) -> impl Responder {
+async fn track_controller(
+    id: web::Path<String>,
+    tera: web::Data<Tera>,
+    modules: web::Data<Modules>,
+) -> impl Responder {
     let mut context = Context::new();
 
     let uc = TrackUsecase {
-        repo: modules.track_repository,
-        log: modules.log,
+        repo: modules.track_repository.clone(),
+        log: modules.log.clone(),
     };
-    // let uc = TrackUsecase {
-    //     repo: Arc::new(TrackGateway::new()),
-    //     log: Arc::new(Logger::new("xxxxxxxx".into())),
-    // };
 
     let ent = match uc.get_track(id.to_string()).await {
         Ok(t) => t,
