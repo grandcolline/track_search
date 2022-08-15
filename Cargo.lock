@@ -501,6 +501,7 @@ dependencies = [
  "log",
  "mock",
  "port",
+ "serde",
  "simple",
  "view",
 ]
@@ -1306,6 +1307,7 @@ name = "simple"
 version = "0.1.0"
 dependencies = [
  "port",
+ "serde",
 ]
 
 [[package]]
