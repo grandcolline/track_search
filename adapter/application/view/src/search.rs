@@ -18,6 +18,14 @@ async fn search_controller(
     tera: web::Data<Tera>,
 ) -> impl Responder {
     let mut context = Context::new();
+
+    // バリデーション
+
+    // UC作成
+
+    // UC実行
+
+    // response作成
     context.insert(
         "search",
         &Search {
@@ -34,5 +42,6 @@ async fn search_controller(
         }
     };
 
+    // response
     HttpResponse::Ok().content_type("text/html").body(resp)
 }

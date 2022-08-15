@@ -59,11 +59,15 @@ async fn track_controller(
 ) -> impl Responder {
     let mut context = Context::new();
 
+    // バリデーション
+
+    // UC作成
     let uc = TrackUsecase {
         repo: container.repository_container.track_repository.clone(),
         log: container.log_container.log.clone(),
     };
 
+    // UC実行
     let ent = match uc.get_track(id.to_string()).await {
         Ok(t) => t,
         Err(_) => {
@@ -73,6 +77,7 @@ async fn track_controller(
         }
     };
 
+    // response作成
     context.insert("track", &TrackResponse::from(ent));
     let resp = match tera.render("track.html", &context) {
         Ok(t) => t,
@@ -84,5 +89,6 @@ async fn track_controller(
         }
     };
 
+    // response
     HttpResponse::Ok().content_type("text/html").body(resp)
 }

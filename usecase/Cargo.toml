@@ -8,3 +8,6 @@ edition = "2021"
 [dependencies]
 entity = { path = "../entity" }
 port = { path = "../port" }
+
+# For Docs
+aquamarine = "0.1"

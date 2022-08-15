@@ -2,10 +2,10 @@ use super::error::ErrorKind;
 use std::convert::TryFrom;
 use std::fmt;
 
-// # スコア - VO
-//
-// 曲の性質の数値
-// 0 - 100の値をとり、0が低く100が高い。
+/// # スコア - VO
+///
+/// 曲の性質の数値
+/// 0 - 100の値をとり、0が低く100が高い。
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Score(u8);
 

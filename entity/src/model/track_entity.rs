@@ -1,31 +1,31 @@
 use crate::model::score::Score;
 
-// # TrackEntity
-//
-// 楽曲の情報や性質をもつ
-//
-// ### NOTE
-//  * 要素を持ちすぎなので削れないか考える
-//  * Entityである必要が今のところないのではないか
+/// # TrackEntity
+///
+/// 楽曲の情報や性質をもつ
+///
+/// ### NOTE
+///  * 要素を持ちすぎなので削れないか考える
+///  * Entityである必要が今のところないのではないか
 #[derive(Debug, Clone)]
 pub struct TrackEntity {
-    // TrackID
+    /// TrackID
     pub id: String,
-    // Track名
+    /// Track名
     pub title: String,
-    // アーティスト名
+    /// アーティスト名
     pub artist: String,
-    // 画像URL
+    /// Track画像URL
     pub image: String,
-    // 人気
+    /// 人気度
     pub popularity: Score,
-    // 踊りやすさ
+    /// 踊りやすさ
     pub danceability: Score,
-    // エネルギー
+    /// エネルギー
     pub energy: Score,
-    // ポジティブ度
+    /// ポジティブ度
     pub valence: Score,
-    // アコースティック度
+    /// アコースティック度
     pub acousticness: Score,
     /// インストゥルメンタル
     pub instrumentalness: Score,
@@ -66,7 +66,7 @@ impl TrackEntity {
         }
     }
 
-    /// ライブ音源かどうか
+    /// このTrackがライブ音源かどうかを返す
     /// * true:  ライブ音源
     /// * false: スタジオ音源
     pub fn is_live(&self) -> bool {
@@ -77,7 +77,7 @@ impl TrackEntity {
         self.liveness >= live
     }
 
-    /// スピーチかどうか
+    /// このTrackがスピーチかどうかを返す
     /// * true:  スピーチ
     /// * false: スピーチではない
     pub fn is_speech(&self) -> bool {

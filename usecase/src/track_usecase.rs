@@ -5,18 +5,6 @@ use entity::model::track_entity::TrackEntity;
 use port::log::Log;
 use port::repository::TrackRepository;
 
-// #[derive(Clone)]
-// pub struct TrackUsecase<Repository: TrackRepository, Logger: Log> {
-//     pub repo: Repository,
-//     pub log: Logger,
-// }
-
-// #[derive(Clone)]
-// pub struct TrackUsecase<Repository: TrackRepository, Logger: Log> {
-//     pub repo: Arc<Repository>,
-//     pub log: Arc<Logger>,
-// }
-
 #[derive(Clone)]
 pub struct TrackUsecase {
     pub repo: Arc<dyn TrackRepository + Sync + Send>,

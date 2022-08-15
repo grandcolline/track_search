@@ -11,3 +11,4 @@ simple = { path = "../adapter/log/simple" }
 mock = { path = "../adapter/repository/mock" }
 port = { path = "../port" }
 log = "0.4.17"
+envy = "0.4"
