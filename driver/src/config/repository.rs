@@ -9,7 +9,7 @@ pub fn init() -> RepositoryContainer {
             "mock" => init_mock(),
             _ => panic!("[CONFIG ERR] `{}` is invalid. founnd: {}", "REPO", val),
         },
-        Err(err) => panic!("[CONFIG ERR] `{}` not get. err: {}", "REPO", err)
+        Err(err) => panic!("[CONFIG ERR] `{}` not get. err: {}", "REPO", err),
     }
 }
 
