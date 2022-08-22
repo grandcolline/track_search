@@ -9,13 +9,13 @@ TODO
 
 ## Local Run
 
-|name|version|
-|:--:|:------|
-|Rust|1.62.0|
-|Cargo|1.62.0|
+| name  | version |
+|:-----:|:--------|
+| Rust  | 1.62.0  |
+| Cargo | 1.62.0  |
 
 ```bash
-bash -c "source .env & cargo run"
+cargo run -- -e .env
 ```
 
 * Seach Page: http://localhost:8080/search

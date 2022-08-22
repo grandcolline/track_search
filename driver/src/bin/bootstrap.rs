@@ -2,11 +2,33 @@ use driver::config;
 use port::Container;
 use view;
 
+use clap::{App, Arg};
+use dotenv::from_path;
+
 #[macro_use]
 extern crate log;
 
 /// 起動メソッド
 fn main() {
+    // 起動CLI設定
+    let app: App = App::new("track_search")
+        .version("v0.1.0")
+        .about("Search track application server")
+        .arg(
+            Arg::with_name("envfile")
+                .help("envfile path")
+                .long("envfile")
+                .short('e')
+                .takes_value(true),
+        );
+    let matches = app.get_matches();
+
+    // 環境変数ファイルの読み込み
+    if let Some(envfile) = matches.value_of("envfile") {
+        println!("Load envfile({})", envfile);
+        from_path(envfile).ok();
+    }
+
     // std::env::set_var("RUST_BACKTRACE", "1");
 
     // std::env::set_var("RUST_LOG", "actix_web=info");
