@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use port::LogContainer;
-use simple::{ Logger, Level };
+use simple::{Level, Logger};
 
 pub fn init() -> LogContainer {
     LogContainer {

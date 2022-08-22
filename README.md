@@ -10,12 +10,12 @@ TODO
 ## Local Run
 
 |name|version|
-|:-:|:--|
+|:--:|:------|
 |Rust|1.62.0|
 |Cargo|1.62.0|
 
 ```bash
-cargo run
+bash -c "source .env & cargo run"
 ```
 
 * Seach Page: http://localhost:8080/search

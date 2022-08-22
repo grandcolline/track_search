@@ -15,6 +15,7 @@ fn main() {
 
     // let sys = actix::System::new();
 
+    // Containerの作成(adpter層のDI)
     let container = Container {
         repository_container: config::repository::init(),
         log_container: config::log::init(),

@@ -15,10 +15,7 @@ pub struct Logger {
 
 impl Logger {
     pub fn new(id: String, level: Level) -> Self {
-        Self {
-            id,
-            level,
-        }
+        Self { id, level }
     }
 }
 

@@ -11,5 +11,5 @@ simple = { path = "../adapter/log/simple" }
 mock = { path = "../adapter/repository/mock" }
 port = { path = "../port" }
 log = "0.4.17"
-envy = "0.4"
-serde = { version = "1.0", features = ["derive"] }
+# envy = "0.4"
+# serde = { version = "1.0", features = ["derive"] }
