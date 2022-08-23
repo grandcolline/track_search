@@ -1,6 +1,6 @@
 use driver::config;
+use html;
 use port::Container;
-use view;
 
 use clap::{App, Arg};
 use dotenv::from_path;
@@ -25,7 +25,7 @@ fn main() {
 
     // 環境変数ファイルの読み込み
     if let Some(envfile) = matches.value_of("envfile") {
-        println!("Load envfile({})", envfile);
+        println!("Load environment. (envfile: {})", envfile);
         from_path(envfile).ok();
     }
 
@@ -44,7 +44,7 @@ fn main() {
     };
 
     // VIEWアプリケーションの場合
-    if let Err(e) = view::main(container) {
+    if let Err(e) = html::main(container) {
         error!("ERROR: {:?}!", e);
     }
 

@@ -15,7 +15,7 @@ async fn healthcheck() -> impl Responder {
 
 #[actix_web::main]
 pub async fn main(container: Container) -> std::io::Result<()> {
-    let template_file = "adapter/application/view/templates/**/*.html"; // FIXME
+    let template_file = "adapter/application/html/templates/**/*.html"; // FIXME
     let tera = match Tera::new(template_file) {
         Ok(t) => t,
         Err(e) => {

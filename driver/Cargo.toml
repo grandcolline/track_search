@@ -6,8 +6,9 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-view = { path = "../adapter/application/view" }
+html = { path = "../adapter/application/html" }
 simple = { path = "../adapter/log/simple" }
+cloud-logging = { path = "../adapter/log/cloud-logging" }
 mock = { path = "../adapter/repository/mock" }
 port = { path = "../port" }
 log = "0.4.17"

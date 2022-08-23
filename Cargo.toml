@@ -1,7 +1,8 @@
 [workspace]
 members = [
-  "adapter/application/view",
+  "adapter/application/html",
   "adapter/repository/mock",
+  "adapter/log/cloud-logging",
   "adapter/log/simple",
   "driver",
   "port",
