@@ -4,7 +4,7 @@ use std::sync::Arc;
 use port::LogContainer;
 
 pub fn init() -> LogContainer {
-    match env::var("LOG") {
+    match env::var("LOG_ADAPTER") {
         Ok(val) => match &*val {
             "simple" => init_simple(),
             _ => panic!("[CONFIG ERR] `{}` is invalid. founnd: {}", "LOG", val),

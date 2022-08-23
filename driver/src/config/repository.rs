@@ -4,7 +4,7 @@ use std::sync::Arc;
 use port::RepositoryContainer;
 
 pub fn init() -> RepositoryContainer {
-    match env::var("REPO") {
+    match env::var("REPO_ADAPTER") {
         Ok(val) => match &*val {
             "mock" => init_mock(),
             _ => panic!("[CONFIG ERR] `{}` is invalid. founnd: {}", "REPO", val),
