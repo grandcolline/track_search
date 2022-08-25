@@ -14,8 +14,8 @@ struct LogTemplate {
     severity: String,
     message: String,
     time: String,
-    trace: String,
     tracking_id: String,
+    // trace: String,
 }
 
 #[derive(Debug, Clone)]
@@ -33,46 +33,32 @@ impl Logger {
 impl Log for Logger {
     fn debug(&self, s: String) {
         if self.level <= Level::Debug {
-            match serde_json::to_string(&LogTemplate {
-                severity: "DEBUG".to_owned(),
-                message: s,
-                time: Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
-                trace: "".to_owned(), // TODO
-                tracking_id: self.id.clone(),
-            }) {
-                Ok(json) => println!("{}", json),
-                Err(_) => panic!(),
-            }
+            println!("{}", create_json("DEBUG".to_owned(), s, self.id.clone()));
         }
     }
 
     fn info(&self, s: String) {
         if self.level <= Level::Info {
-            match serde_json::to_string(&LogTemplate {
-                severity: "INFO".to_owned(),
-                message: s,
-                time: Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
-                trace: "".to_owned(), // TODO
-                tracking_id: self.id.clone(),
-            }) {
-                Ok(json) => println!("{}", json),
-                Err(_) => panic!(),
-            }
+            println!("{}", create_json("INFO".to_owned(), s, self.id.clone()));
         }
     }
 
     fn error(&self, s: String) {
         if self.level <= Level::Error {
-            match serde_json::to_string(&LogTemplate {
-                severity: "ERROR".to_owned(),
-                message: s,
-                time: Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
-                trace: "".to_owned(), // TODO
-                tracking_id: self.id.clone(),
-            }) {
-                Ok(json) => println!("{}", json),
-                Err(_) => panic!(),
-            }
+            println!("{}", create_json("ERROR".to_owned(), s, self.id.clone()));
         }
+    }
+}
+
+fn create_json(severity: String, message: String, tracking_id: String) -> String {
+    match serde_json::to_string(&LogTemplate {
+        severity,
+        message,
+        time: Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+        tracking_id,
+        // trace: "".to_owned(),
+    }) {
+        Ok(json) => json,
+        Err(_) => "log formatting error!".to_string(), // FIXME: error内容も表示する
     }
 }
