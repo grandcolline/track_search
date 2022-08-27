@@ -2,6 +2,7 @@
 members = [
   "adapter/application/html",
   "adapter/repository/mock",
+  "adapter/repository/spotify",
   "adapter/log/cloud-logging",
   "adapter/log/simple",
   "driver",

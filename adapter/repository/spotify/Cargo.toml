@@ -1,0 +1,13 @@
+[package]
+name = "spotify"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+entity = { path = "../../../entity" }
+port = { path = "../../../port" }
+async-trait = "0.1.50"
+rspotify = "0.11.0"
+

@@ -1,6 +1,8 @@
 use std::convert::From;
 
-use entity::model::track_entity::TrackEntity;
+use entity::key::Key;
+use entity::mode::Mode;
+use entity::track_entity::TrackEntity;
 use port::Container;
 use usecase::track_usecase::TrackUsecase;
 
@@ -43,10 +45,27 @@ impl From<TrackEntity> for TrackResponse {
             instrumentalness: ent.instrumentalness.to_string(),
             liveness: ent.liveness.to_string(),
             speechiness: ent.speechiness.to_string(),
-            time: "4:12".to_string(),  // FIXME
-            bpm: "83.9".to_string(),   // FIXME
-            key: "C".to_string(),      // FIXME
-            mode: "Major".to_string(), // FIXME
+            time:(ent.time / 60).to_string() + ":" + (ent.time % 60).to_string().as_str(), // FIXME
+            bpm: ent.bpm.round().to_string(),
+            key: match ent.key {
+                Key::C => "C".to_string(),
+                Key::CSahrp => "C♯".to_string(),
+                Key::D => "D".to_string(),
+                Key::EFlat => "E♭".to_string(),
+                Key::E => "E".to_string(),
+                Key::F => "F".to_string(),
+                Key::FSharp => "F♯".to_string(),
+                Key::G => "G".to_string(),
+                Key::GSharp => "G♯".to_string(),
+                Key::A => "A".to_string(),
+                Key::BFlat => "B♭".to_string(),
+                Key::B => "B".to_string(),
+            },
+            mode: match ent.mode {
+                Mode::Major => "Major".to_string(),
+                Mode::Minor => "Minor".to_string(),
+                Mode::NoResult => "-".to_string(),
+            },
         }
     }
 }
@@ -71,6 +90,7 @@ async fn track_controller(
     let ent = match uc.get_track(id.to_string()).await {
         Ok(t) => t,
         Err(_) => {
+            // FIXME
             return HttpResponse::InternalServerError()
                 .content_type("text/html")
                 .body("Server Error");
@@ -89,6 +109,6 @@ async fn track_controller(
         }
     };
 
-    // response
+    // response処理
     HttpResponse::Ok().content_type("text/html").body(resp)
 }

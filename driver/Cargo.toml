@@ -10,6 +10,7 @@ html = { path = "../adapter/application/html" }
 simple = { path = "../adapter/log/simple" }
 cloud-logging = { path = "../adapter/log/cloud-logging" }
 mock = { path = "../adapter/repository/mock" }
+spotify = { path = "../adapter/repository/spotify" }
 port = { path = "../port" }
 log = "0.4.17"
 dotenv = "0.15.0"

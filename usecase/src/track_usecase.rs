@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
-use entity::model::error::ErrorKind;
-use entity::model::track_entity::TrackEntity;
+use entity::error::ErrorKind;
+use entity::track_entity::TrackEntity;
 use port::log::Log;
 use port::repository::TrackRepository;
 

@@ -1,5 +1,5 @@
-use entity::model::error::ErrorKind;
-use entity::model::track_entity::TrackEntity;
+use entity::error::ErrorKind;
+use entity::track_entity::TrackEntity;
 
 use async_trait::async_trait;
 

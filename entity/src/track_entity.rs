@@ -1,4 +1,6 @@
-use crate::model::score::Score;
+use crate::key::Key;
+use crate::mode::Mode;
+use crate::score::Score;
 
 /// # TrackEntity
 ///
@@ -17,6 +19,14 @@ pub struct TrackEntity {
     pub artist: String,
     /// Track画像URL
     pub image: String,
+    /// モード(旋法)
+    pub mode: Mode,
+    /// キー
+    pub key: Key,
+    /// BPM
+    pub bpm: f32,
+    /// 再生時間(秒)
+    pub time: u64,
     /// 人気度
     pub popularity: Score,
     /// 踊りやすさ
@@ -41,6 +51,10 @@ impl TrackEntity {
         title: String,
         artist: String,
         image: String,
+        mode: Mode,
+        key: Key,
+        bpm: f32,
+        time: u64,
         popularity: Score,
         danceability: Score,
         energy: Score,
@@ -55,6 +69,10 @@ impl TrackEntity {
             title,
             artist,
             image,
+            mode,
+            key,
+            bpm,
+            time,
             popularity,
             danceability,
             energy,

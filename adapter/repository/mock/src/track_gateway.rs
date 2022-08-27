@@ -1,6 +1,8 @@
-use entity::model::error::ErrorKind;
-use entity::model::score::Score;
-use entity::model::track_entity::TrackEntity;
+use entity::error::ErrorKind;
+use entity::key::Key;
+use entity::mode::Mode;
+use entity::score::Score;
+use entity::track_entity::TrackEntity;
 use port::repository::TrackRepository;
 
 use async_trait::async_trait;
@@ -22,6 +24,10 @@ impl TrackRepository for TrackGateway {
             "クロノスタシス".to_string(),
             "きのこ帝国".to_string(),
             "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".to_string(),
+            Mode::Minor,
+            Key::CSahrp,
+            83.9,
+            252,
             Score::try_from(58)?,
             Score::try_from(46)?,
             Score::try_from(75)?,
