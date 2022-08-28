@@ -2,11 +2,15 @@ use entity::error::ErrorKind;
 use entity::key::Key;
 use entity::mode::Mode;
 use entity::score::Score;
+use entity::track_dto::TrackDto;
 use entity::track_entity::TrackEntity;
 use port::repository::TrackRepository;
 
 use async_trait::async_trait;
-use rspotify::{model::Modality, model::TrackId, prelude::*, ClientCredsSpotify, Credentials};
+use rspotify::{
+    model::Modality, model::SearchResult, model::SearchType, model::TrackId, prelude::*,
+    ClientCredsSpotify, Credentials,
+};
 
 #[derive(Debug, Clone)]
 pub struct TrackGateway {
@@ -61,6 +65,38 @@ impl TrackRepository for TrackGateway {
             Score::try_from((feature.liveness * 100.0).round() as u8)?,
             Score::try_from((feature.speechiness * 100.0).round() as u8)?,
         ))
+    }
+
+    async fn search(&self, key: String) -> Result<Vec<TrackDto>, ErrorKind> {
+        let mut spotify = ClientCredsSpotify::new(self.creds.clone());
+        spotify.request_token().await.unwrap();
+
+        let kekka = match spotify
+            .search(key.as_str(), &SearchType::Track, None, None, Some(15), None)
+            .await
+        {
+            Ok(v) => match v {
+                SearchResult::Tracks(x) => x.items,
+                _ => return Err(ErrorKind::NotFound),
+            },
+            Err(_) => return Err(ErrorKind::NotFound),
+        };
+
+        println!("{:?}", kekka);
+
+        let mut res = vec![];
+        for record in kekka.iter() {
+            res.push(TrackDto::from(
+                match &record.id {
+                    Some(id) => id.id().to_string(),
+                    None => continue,
+                },
+                record.name.clone(),
+                record.artists[0].name.clone(),
+                record.album.images[0].url.clone(),
+            ));
+        }
+        Ok(res)
     }
 }
 

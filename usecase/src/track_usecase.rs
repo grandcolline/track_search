@@ -1,6 +1,7 @@
 use std::sync::Arc;
 
 use entity::error::ErrorKind;
+use entity::track_dto::TrackDto;
 use entity::track_entity::TrackEntity;
 use port::log::Log;
 use port::repository::TrackRepository;
@@ -58,7 +59,10 @@ impl TrackUsecase {
     ///   トラックレポジトリ   ->> -UC「楽曲を検索する」 : トラックエンティティリスト
     ///   UC「楽曲を検索する」 ->> -アプリケーション     : Result<トラックエンティティリスト, エラー>
     /// ```
-    pub async fn search_track(&self) {
-        // TODO
+    pub async fn search_track(&self, key: String) -> Result<Vec<TrackDto>, ErrorKind> {
+        self.log
+            .debug("START search track usecase. key: ".to_string() + &key);
+
+        return self.repo.search(key).await;
     }
 }
