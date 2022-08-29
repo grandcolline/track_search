@@ -31,9 +31,10 @@ jobs:
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         access_token_lifetime: 1800s
 
-    - uses: docker/login-action@v1
-      with:
-        registry: ${{ secrets.GAR_REGISTRY }}
+    - uses: 'google-github-actions/setup-gcloud@v0'
+
+    - name: docker auth
+      run: gcloud auth configure-docker ${{ secrets.GAR_REGISTRY }}
 
     - uses: docker/build-push-action@v2
       with:
