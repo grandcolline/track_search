@@ -21,6 +21,12 @@ cargo run -- -e .env
 * Seach Page: http://localhost:8080/search
 * Track Psge: http://localhost:8080/track/test
 
+## Build
+
+```bash
+docker build 
+```
+
 ## Refs
 
 - [[Rust] モジュールのベストプラクティス](https://zenn.dev/msakuta/articles/83f9991b2aba62)

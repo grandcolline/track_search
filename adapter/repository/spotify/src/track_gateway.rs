@@ -32,7 +32,6 @@ impl TrackRepository for TrackGateway {
         spotify.request_token().await.unwrap();
 
         // Running the requests
-        // id: 299XX9C7B56JuqGtokDeap
         let track_id = TrackId::from_id(&id).unwrap();
         let track = match spotify.track(&track_id).await {
             Ok(track) => track,
@@ -52,8 +51,8 @@ impl TrackRepository for TrackGateway {
             track.name,
             track.artists[0].name.clone(),
             track.album.images[0].url.clone(),
-            translate_mode(feature.mode),
-            translate_key(feature.key)?,
+            convert_mode(feature.mode),
+            convert_key(feature.key)?,
             feature.tempo,
             track.duration.as_secs(),
             Score::try_from(track.popularity as u8)?,
@@ -82,7 +81,7 @@ impl TrackRepository for TrackGateway {
             Err(_) => return Err(ErrorKind::NotFound),
         };
 
-        println!("{:?}", kekka);
+        // println!("{:?}", kekka);
 
         let mut res = vec![];
         for record in kekka.iter() {
@@ -100,7 +99,7 @@ impl TrackRepository for TrackGateway {
     }
 }
 
-fn translate_mode(mode: Modality) -> Mode {
+fn convert_mode(mode: Modality) -> Mode {
     match mode {
         Modality::Major => Mode::Major,
         Modality::Minor => Mode::Minor,
@@ -108,7 +107,7 @@ fn translate_mode(mode: Modality) -> Mode {
     }
 }
 
-fn translate_key(key: i32) -> Result<Key, ErrorKind> {
+fn convert_key(key: i32) -> Result<Key, ErrorKind> {
     match key {
         0 => Ok(Key::C),
         1 => Ok(Key::CSahrp),
