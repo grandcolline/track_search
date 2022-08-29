@@ -15,8 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - uses: docker/setup-buildx-action@v1
-
     - uses: actions/cache@v2
       with:
         path: /tmp/.buildx-cache
@@ -31,11 +29,11 @@ jobs:
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         access_token_lifetime: 1800s
 
-    - uses: 'google-github-actions/setup-gcloud@v0'
+  # - uses: 'google-github-actions/setup-gcloud@v0'
+    - name: configure-docker
+      run: gcloud auth configure-docker ${{ secrets.GAR_REGISTRY }} --quiet
 
-    - name: docker auth
-      run: gcloud auth configure-docker ${{ secrets.GAR_REGISTRY }}
-
+    - uses: docker/setup-buildx-action@v1
     - uses: docker/build-push-action@v2
       with:
         push: true
