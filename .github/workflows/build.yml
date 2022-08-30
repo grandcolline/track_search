@@ -37,6 +37,8 @@ jobs:
     - name: Docker Build
       run: docker build -t ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest .
 
+    - run: docker images -a
+
     - name: Docker Push
       run: |
         docker push ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest
