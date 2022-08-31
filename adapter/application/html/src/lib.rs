@@ -33,7 +33,7 @@ pub async fn main(port: u16, container: Container) -> std::io::Result<()> {
             .service(track_controller)
             .service(search_controller)
     })
-    .bind(("127.0.0.1", port))?
+    .bind(("0.0.0.0", port))?
     .run()
     .await
 }
