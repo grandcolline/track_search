@@ -22,17 +22,16 @@ jobs:
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         access_token_lifetime: 1800s
 
-    - name: configure-docker
+    - name: configure docker
       run: gcloud auth configure-docker ${{ secrets.GAR_REGISTRY }} --quiet
 
-    - run: docker images -a
-
     - name: Docker Build
-      run: docker build -t ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest .
-
-    - run: docker images -a
+      run: |
+        docker build -t ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest .
+        docker tag ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:${{ github.sha }}
 
     - name: Docker Push
       run: |
         docker push ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest
+        docker push ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:${{ github.sha }}
 
