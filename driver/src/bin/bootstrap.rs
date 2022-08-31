@@ -1,6 +1,7 @@
 use driver::config;
 use html;
 use port::Container;
+use std::env;
 
 use clap::{App, Arg};
 use dotenv::from_path;
@@ -37,6 +38,15 @@ fn main() {
 
     // let sys = actix::System::new();
 
+    // FIXME: here!!
+    let port = match env::var("PORT") {
+        Ok(val) => match val.parse::<u16>() {
+            Ok(val) => val,
+            Err(_) => panic!("FIXME!! PORT"),
+        },
+        Err(_) => panic!("FIXME!! PORT"),
+    };
+
     // Containerの作成(adpter層のDI)
     let container = Container {
         repository_container: config::repository::init(),
@@ -44,7 +54,7 @@ fn main() {
     };
 
     // VIEWアプリケーションの場合
-    if let Err(e) = html::main(container) {
+    if let Err(e) = html::main(port, container) {
         error!("ERROR: {:?}!", e);
     }
 

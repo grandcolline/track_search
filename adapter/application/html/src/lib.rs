@@ -14,7 +14,7 @@ async fn healthcheck() -> impl Responder {
 }
 
 #[actix_web::main]
-pub async fn main(container: Container) -> std::io::Result<()> {
+pub async fn main(port: u16, container: Container) -> std::io::Result<()> {
     let template_file = "adapter/application/html/templates/**/*.html"; // FIXME
     let tera = match Tera::new(template_file) {
         Ok(t) => t,
@@ -33,7 +33,7 @@ pub async fn main(container: Container) -> std::io::Result<()> {
             .service(track_controller)
             .service(search_controller)
     })
-    .bind(("127.0.0.1", 8080))?
+    .bind(("127.0.0.1", port))?
     .run()
     .await
 }
