@@ -31,31 +31,31 @@ impl Logger {
 }
 
 impl Log for Logger {
-    fn debug(&self, s: String) {
+    fn debug(&self, s: &str) {
         if self.level <= Level::Debug {
-            println!("{}", create_json("DEBUG".to_owned(), s, self.id.clone()));
+            println!("{}", create_json("DEBUG".to_owned(), s, &self.id));
         }
     }
 
-    fn info(&self, s: String) {
+    fn info(&self, s: &str) {
         if self.level <= Level::Info {
-            println!("{}", create_json("INFO".to_owned(), s, self.id.clone()));
+            println!("{}", create_json("INFO".to_owned(), s, &self.id));
         }
     }
 
-    fn error(&self, s: String) {
+    fn error(&self, s: &str) {
         if self.level <= Level::Error {
-            println!("{}", create_json("ERROR".to_owned(), s, self.id.clone()));
+            println!("{}", create_json("ERROR".to_owned(), s, &self.id));
         }
     }
 }
 
-fn create_json(severity: String, message: String, tracking_id: String) -> String {
+fn create_json(severity: String, message: &str, tracking_id: &str) -> String {
     match serde_json::to_string(&LogTemplate {
         severity,
-        message,
+        message: message.to_string(),
         time: Local::now().format("%Y-%m-%d %H:%M:%S").to_string(),
-        tracking_id,
+        tracking_id: tracking_id.to_string(),
         // trace: "".to_owned(),
     }) {
         Ok(json) => json,

@@ -47,6 +47,10 @@
       background: white;
       color: black;
     }
+    a, a:visited{
+      color: inherit;
+      text-decoration: none;
+    }
   </style>
   <title>Track Data</title>
 </head>
@@ -59,7 +63,7 @@
   <div class="container maxWidth">
     <div class="row">
       <h1>Search</h1>
-      <form action="/search" method="GET">
+      <form action="/" method="GET">
         <div class="input-group">
           <input type="text" class="form-control" name="q" placeholder="track name" value="{{ keyword }}">
           <span class="input-group-btn">
@@ -80,8 +84,10 @@
           </a>
         </div>
         <div class="col-sm-9 col-8">
+          <a href="/track/{{ track.id }}">
           <h4>{{ track.name }}</h4>
           <p>by {{ track.artist }}</p>
+          </a>
         </div>
         <div class="col-1 align-self-center">
           <a href="/track/{{ track.id }}">

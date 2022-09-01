@@ -19,12 +19,12 @@ impl TrackGateway {
 
 #[async_trait]
 impl TrackRepository for TrackGateway {
-    async fn find_by_id(&self, id: String) -> Result<TrackEntity, ErrorKind> {
+    async fn find_by_id(&self, id: &str) -> Result<TrackEntity, ErrorKind> {
         Ok(TrackEntity::from(
-            id,
-            "クロノスタシス".to_string(),
-            "きのこ帝国".to_string(),
-            "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".to_string(),
+            id.into(),
+            "クロノスタシス".into(),
+            "きのこ帝国".into(),
+            "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".into(),
             Mode::Minor,
             Key::CSahrp,
             83.9,
@@ -40,25 +40,25 @@ impl TrackRepository for TrackGateway {
         ))
     }
 
-    async fn search(&self, key: String) -> Result<Vec<TrackDto>, ErrorKind> {
+    async fn search(&self, _: &str) -> Result<Vec<TrackDto>, ErrorKind> {
         Ok(vec![
             TrackDto::from(
-                "aaaaa".to_string(),
-                "クロノスタシス".to_string(),
-                "きのこ帝国".to_string(),
-                "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".to_string(),
+                "aaaaa".into(),
+                "クロノスタシス".into(),
+                "きのこ帝国".into(),
+                "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".into(),
             ),
             TrackDto::from(
-                "bbbbbb".to_string(),
-                "クロノスタシス2".to_string(),
-                "きのこ帝国".to_string(),
-                "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".to_string(),
+                "bbbbbb".into(),
+                "クロノスタシス2".into(),
+                "きのこ帝国".into(),
+                "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".into(),
             ),
             TrackDto::from(
-                "ccccccc".to_string(),
-                "クロノスタシス3".to_string(),
-                "きのこ帝国3".to_string(),
-                "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".to_string(),
+                "ccccccc".into(),
+                "クロノスタシス3".into(),
+                "きのこ帝国3".into(),
+                "https://i.scdn.co/image/ab67616d00001e02963cf0d3369083bc68e80141".into(),
             ),
         ])
     }

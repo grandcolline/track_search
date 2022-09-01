@@ -21,7 +21,7 @@ impl Logger {
 }
 
 impl Log for Logger {
-    fn debug(&self, s: String) {
+    fn debug(&self, s: &str) {
         if self.level <= Level::Debug {
             println!(
                 " \x1b[47m\x1b[45m DEBUG \x1b[m {} | {} | {}",
@@ -32,7 +32,7 @@ impl Log for Logger {
         }
     }
 
-    fn info(&self, s: String) {
+    fn info(&self, s: &str) {
         if self.level <= Level::Info {
             println!(
                 " \x1b[47m\x1b[44m INFO  \x1b[m {} | {} | {}",
@@ -43,7 +43,7 @@ impl Log for Logger {
         }
     }
 
-    fn error(&self, s: String) {
+    fn error(&self, s: &str) {
         if self.level <= Level::Error {
             println!(
                 " \x1b[47m\x1b[41m ERROR \x1b[m {} | {} | {}",

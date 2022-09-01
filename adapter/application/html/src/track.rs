@@ -87,7 +87,7 @@ async fn track_controller(
     };
 
     // UC実行
-    let ent = match uc.get_track(id.to_string()).await {
+    let ent = match uc.get_track(&id.to_string()).await {
         Ok(t) => t,
         Err(_) => {
             // FIXME

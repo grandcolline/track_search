@@ -27,12 +27,12 @@ impl TrackGateway {
 
 #[async_trait]
 impl TrackRepository for TrackGateway {
-    async fn find_by_id(&self, id: String) -> Result<TrackEntity, ErrorKind> {
+    async fn find_by_id(&self, id: &str) -> Result<TrackEntity, ErrorKind> {
         let mut spotify = ClientCredsSpotify::new(self.creds.clone());
         spotify.request_token().await.unwrap();
 
         // Running the requests
-        let track_id = TrackId::from_id(&id).unwrap();
+        let track_id = TrackId::from_id(id).unwrap();
         let track = match spotify.track(&track_id).await {
             Ok(track) => track,
             Err(_) => return Err(ErrorKind::NotFound),
@@ -47,7 +47,7 @@ impl TrackRepository for TrackGateway {
         // println!("{:?}", feature);
 
         Ok(TrackEntity::from(
-            id,
+            id.into(),
             track.name,
             track.artists[0].name.clone(),
             track.album.images[0].url.clone(),
@@ -66,12 +66,16 @@ impl TrackRepository for TrackGateway {
         ))
     }
 
-    async fn search(&self, key: String) -> Result<Vec<TrackDto>, ErrorKind> {
+    async fn search(&self, key: &str) -> Result<Vec<TrackDto>, ErrorKind> {
+        if key.len() == 0 {
+            return Err(ErrorKind::NotFound);
+        }
+
         let mut spotify = ClientCredsSpotify::new(self.creds.clone());
         spotify.request_token().await.unwrap();
 
         let kekka = match spotify
-            .search(key.as_str(), &SearchType::Track, None, None, Some(15), None)
+            .search(key, &SearchType::Track, None, None, Some(15), None)
             .await
         {
             Ok(v) => match v {

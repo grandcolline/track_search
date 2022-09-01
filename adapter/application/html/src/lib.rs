@@ -8,7 +8,7 @@ use track::track_controller;
 mod search;
 use search::search_controller;
 
-#[get("/")]
+#[get("/.genki")]
 async fn healthcheck() -> impl Responder {
     format!("server running!")
 }

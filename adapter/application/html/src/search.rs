@@ -4,6 +4,7 @@ use actix_web::{get, web, HttpResponse, Responder};
 use serde::{Deserialize, Serialize};
 use tera::{Context, Tera};
 
+use entity::error::ErrorKind;
 use entity::track_dto::TrackDto;
 use port::Container;
 use usecase::track_usecase::TrackUsecase;
@@ -34,10 +35,10 @@ impl From<TrackDto> for Track {
 
 #[derive(Deserialize)]
 struct SearchQuery {
-    q: String,
+    q: Option<String>,
 }
 
-#[get("/search")]
+#[get("/")]
 async fn search_controller(
     query: web::Query<SearchQuery>,
     tera: web::Data<Tera>,
@@ -46,6 +47,10 @@ async fn search_controller(
     let mut context = Context::new();
 
     // バリデーション
+    let q = match &query.q {
+        Some(v) => &v,
+        None => "",
+    };
 
     // UC作成
     let uc = TrackUsecase {
@@ -54,18 +59,21 @@ async fn search_controller(
     };
 
     // UC実行
-    let dtos = match uc.search_track(query.q.to_string()).await {
+    let dtos = match uc.search_track(q).await {
         Ok(v) => v,
-        Err(_) => {
-            // FIXME
-            return HttpResponse::InternalServerError()
-                .content_type("text/html")
-                .body("Server Error");
-        }
+        Err(e) => match e {
+            ErrorKind::NotFound => vec![],
+            _ => {
+                // FIXME
+                return HttpResponse::InternalServerError()
+                    .content_type("text/html")
+                    .body("Server Error");
+            }
+        },
     };
 
     // response作成
-    context.insert("keyword", &query.q.to_string());
+    context.insert("keyword", q);
 
     let mut tracks = vec![];
     for dto in dtos.iter() {

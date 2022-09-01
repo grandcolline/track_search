@@ -33,9 +33,9 @@ impl TrackUsecase {
     ///   トラックレポジトリ   ->> -UC「楽曲を取得する」 : トラックエンティティ
     ///   UC「楽曲を取得する」 ->> -アプリケーション     : Result<トラックエンティティ, エラー>
     /// ```
-    pub async fn get_track(&self, id: String) -> Result<TrackEntity, ErrorKind> {
+    pub async fn get_track(&self, id: &str) -> Result<TrackEntity, ErrorKind> {
         self.log
-            .debug("START get track usecase. TrackID: ".to_string() + &id);
+            .debug(&format!("START get track usecase. id: {}", id));
 
         return self.repo.find_by_id(id).await;
     }
@@ -59,9 +59,9 @@ impl TrackUsecase {
     ///   トラックレポジトリ   ->> -UC「楽曲を検索する」 : トラックエンティティリスト
     ///   UC「楽曲を検索する」 ->> -アプリケーション     : Result<トラックエンティティリスト, エラー>
     /// ```
-    pub async fn search_track(&self, key: String) -> Result<Vec<TrackDto>, ErrorKind> {
+    pub async fn search_track(&self, key: &str) -> Result<Vec<TrackDto>, ErrorKind> {
         self.log
-            .debug("START search track usecase. key: ".to_string() + &key);
+            .debug(&format!("START search track usecase. key: {}", key));
 
         return self.repo.search(key).await;
     }
