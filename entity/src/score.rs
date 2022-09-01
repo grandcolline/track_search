@@ -26,9 +26,3 @@ impl fmt::Display for Score {
         write!(f, "{}", self.0)
     }
 }
-
-impl Score {
-    pub fn to_string(&self) -> String {
-        return self.0.clone().to_string(); // TODO: ここcloneした方がいいのか？
-    }
-}

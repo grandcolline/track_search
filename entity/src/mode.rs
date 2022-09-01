@@ -1,4 +1,3 @@
-use super::error::ErrorKind;
 use std::fmt;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -8,14 +7,12 @@ pub enum Mode {
     NoResult,
 }
 
-impl TryFrom<String> for Mode {
-    type Error = ErrorKind;
-
-    fn try_from(s: String) -> Result<Self, Self::Error> {
+impl From<String> for Mode {
+    fn from(s: String) -> Self {
         match s.as_str() {
-            "Major" | "MAJOR" | "major" => Ok(Mode::Major),
-            "Minor" | "MINOR" | "minor" => Ok(Mode::Minor),
-            _ => Ok(Mode::NoResult),
+            "Major" | "MAJOR" | "major" => Mode::Major,
+            "Minor" | "MINOR" | "minor" => Mode::Minor,
+            _ => Mode::NoResult,
         }
     }
 }
