@@ -18,6 +18,7 @@
 //!   * レポジトリ
 //!     * [mock](../mock/index.html)
 //!     * [spotify](../spotify/index.html)
+//! * [ドライバ層](../driver/index.html)
 //!
 use driver::config;
 use html;
