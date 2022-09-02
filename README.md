@@ -2,11 +2,6 @@
 
 とりあえず、動くものを・・・🌝
 
-## Document
-
-TODO
-<!-- https://grandcolline.github.io/track_search/track_search/ -->
-
 ## Local Run
 
 | name  | version |
@@ -18,14 +13,19 @@ TODO
 cargo run -- -e .env
 ```
 
-* Seach Page: http://localhost:8080/search
-* Track Psge: http://localhost:8080/track/test
+* Seach Page: http://localhost:8080/
+* Track Psge: http://localhost:8080/track/aaaaaaa
 
 ## Build
 
 ```bash
-docker build 
+docker build -t track-search .
 ```
+
+## Document
+
+TODO
+<!-- https://grandcolline.github.io/track_search/track_search/ -->
 
 ## Refs
 

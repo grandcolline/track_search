@@ -7,41 +7,58 @@ on:
 permissions:
   id-token: write
   contents: read
+  pages: write
 
 jobs:
   build:
     name: Build and Push
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: google-github-actions/auth@v0
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Authenticate Google Cloud
+      uses: google-github-actions/auth@v0
       with:
         create_credentials_file: true
         workload_identity_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         access_token_lifetime: 1800s
 
-    - name: Configure Docker
-      run: gcloud auth configure-docker ${{ secrets.GAR_REGISTRY }} --quiet
+    - name: Configure docker
+      run: gcloud auth configure-docker ${{ secrets.GAR_REGISTRY }}
 
-    - name: Docker Build
-      run: |
-        docker build -t ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest .
-        docker tag ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:${{ github.sha }}
+    - name: Build
+      run: docker build -t track-search .
 
     - name: Docker Push
       run: |
-        docker push ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest
-        docker push ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:${{ github.sha }}
+        docker tag track-search ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest
+        docker tag track-search ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:${{ github.sha }}
+        docker push --all-tags ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}
 
-  doc:
+  docs:
     name: Docs
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout
+      uses: actions/checkout@v3
+
     - name: Run doc
       run: cargo doc --no-deps
-    - name: Deploy
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v2
+
+    - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
         path: target/doc
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1
+
