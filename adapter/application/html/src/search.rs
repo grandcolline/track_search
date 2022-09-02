@@ -46,7 +46,7 @@ async fn search_controller(
 ) -> impl Responder {
     let mut context = Context::new();
 
-    // バリデーション
+    // 入力値チェック
     let q = match &query.q {
         Some(v) => &v,
         None => "",
@@ -72,7 +72,7 @@ async fn search_controller(
         },
     };
 
-    // response作成
+    // レスポンス作成
     context.insert("keyword", q);
 
     let mut tracks = vec![];
@@ -91,6 +91,6 @@ async fn search_controller(
         }
     };
 
-    // response
+    // return
     HttpResponse::Ok().content_type("text/html").body(resp)
 }

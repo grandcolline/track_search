@@ -78,7 +78,7 @@ async fn track_controller(
 ) -> impl Responder {
     let mut context = Context::new();
 
-    // バリデーション
+    // 入力値チェック
 
     // UC作成
     let uc = TrackUsecase {
@@ -97,7 +97,7 @@ async fn track_controller(
         }
     };
 
-    // response作成
+    // レスポンス作成
     context.insert("track", &TrackResponse::from(ent));
     let resp = match tera.render("track.html", &context) {
         Ok(t) => t,
@@ -109,6 +109,6 @@ async fn track_controller(
         }
     };
 
-    // response処理
+    // return
     HttpResponse::Ok().content_type("text/html").body(resp)
 }
