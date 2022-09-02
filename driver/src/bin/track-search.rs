@@ -1,3 +1,24 @@
+//! # track-sreach
+//!
+//! `track-search` は楽曲の検索・情報提供を行うアプリケーションです。
+//!
+//! ## アーキテクチャ
+//!
+//! ![architecture](../../images/architecture.drawio.svg)
+//!
+//! * [エンティティ層](../entity/index.html)
+//! * [ポート](../port/index.html)
+//! * [ユースケース層](../usecase/index.html)
+//! * アダプタ層
+//!   * アプリケーション（プライマリアダプタ）
+//!     * [html](../html/index.html)
+//!   * ログ
+//!     * [simple](../simple/index.html)
+//!     * [cloud_logging](../cloud_logging/index.html)
+//!   * レポジトリ
+//!     * [mock](../mock/index.html)
+//!     * [spotify](../spotify/index.html)
+//!
 use driver::config;
 use html;
 use port::Container;
@@ -12,7 +33,7 @@ extern crate log;
 /// 起動メソッド
 fn main() {
     // 起動CLI設定
-    let app: App = App::new("track_search")
+    let app: App = App::new("track-search")
         .version("v0.1.0")
         .about("Search track application server")
         .arg(
