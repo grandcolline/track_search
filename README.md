@@ -24,9 +24,7 @@ docker build -t track-search .
 
 ## Documents
 
-### web (main branch)
-
-https://grandcolline.github.io/track_search/doc/track_search/index.html
+https://grandcolline.github.io/track_search/
 
 ### Local
 
