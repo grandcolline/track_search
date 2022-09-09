@@ -1,0 +1,29 @@
+syntax = "proto3";
+package tracksearch;
+
+service Track {
+    rpc SearchTrack (SearchTrackRequest) returns (SearchTrackReply);
+    rpc GetTrack (GetTrackRequest) returns (GetTrackReply);
+}
+
+message SearchTrackRequest {
+    string keyword = 1;
+}
+
+message SearchTrackReply {
+    string id = 1;
+    string name = 1;
+    string image = 1;
+    string artist = 1;
+}
+
+message GetTrackRequest {
+    string keyword = 1;
+}
+
+message GetTrackReply {
+    string id = 1;
+    string name = 1;
+    string image = 1;
+    string artist = 1;
+}

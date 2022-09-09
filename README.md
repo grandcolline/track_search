@@ -6,8 +6,8 @@
 
 | name  | version |
 |:-----:|:--------|
-| Rust  | 1.62.0  |
-| Cargo | 1.62.0  |
+| Rust  | 1.63.0  |
+| Cargo | 1.63.0  |
 
 ```bash
 cargo run -- -e .env
