@@ -2,16 +2,22 @@
 
 とりあえず、動くものを・・・🌝
 
-## Local Run
+## How to running application in local
+
+1. Install rust
 
 | name  | version |
 |:-----:|:--------|
 | Rust  | 1.63.0  |
 | Cargo | 1.63.0  |
 
+2. Exec command
+
 ```bash
 cargo run -- -e .env
 ```
+
+3. Check it 🤟
 
 * Seach Page: http://localhost:8080/
 * Track Psge: http://localhost:8080/track/aaaaaaa
@@ -25,6 +31,16 @@ docker build -t track-search .
 ## Documents
 
 https://grandcolline.github.io/track_search/
+
+## Fomatter
+
+```bash
+# rust file
+cargo fmt
+
+# proto file
+find adapter/application/grpc/proto/ -name "*.proto" | xargs clang-format -i
+```
 
 
 ## Refs

@@ -1,5 +1,6 @@
 [workspace]
 members = [
+  "adapter/application/grpc",
   "adapter/application/html",
   "adapter/repository/mock",
   "adapter/repository/spotify",

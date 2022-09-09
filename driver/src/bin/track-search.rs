@@ -22,6 +22,7 @@
 //!
 use driver::config;
 use html;
+use grpc;
 use port::Container;
 use std::env;
 
@@ -75,10 +76,17 @@ fn main() {
         log_container: config::log::init(),
     };
 
-    // VIEWアプリケーションの場合
-    if let Err(e) = html::main(port, container) {
-        error!("ERROR: {:?}!", e);
+    if let Err(e) = match env::var("APP") {
+        Ok(val) => match val.as_str() {
+            "html" => html::main(port, container),
+            // "grpc" => grpc::main(),
+            _ => panic!("[CONFIG ERROR] `{}` is invalid. founnd: {}", "APP", val),
+        },
+        Err(err) => panic!("[CONFIG ERROR] `{}` not get. err: {}", "APP", err),
+    } {
+        error!("APPLICATION START ERROR: {:?}!", e);
     }
+
 
     // let _ = sys.run();
 }

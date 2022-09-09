@@ -2,28 +2,70 @@ syntax = "proto3";
 package tracksearch;
 
 service Track {
-    rpc SearchTrack (SearchTrackRequest) returns (SearchTrackReply);
-    rpc GetTrack (GetTrackRequest) returns (GetTrackReply);
+  // トラック検索
+  rpc SearchTrack(SearchTrackRequest) returns (SearchTrackReply);
+  // トラック取得
+  rpc GetTrack(GetTrackRequest) returns (GetTrackReply);
 }
 
 message SearchTrackRequest {
-    string keyword = 1;
+  string keyword = 1;  // 検索ワード
 }
 
 message SearchTrackReply {
-    string id = 1;
-    string name = 1;
-    string image = 1;
-    string artist = 1;
+  repeated Track tracks = 1;  // トラック情報リスト
+
+  message Track {
+    string id        = 1;  // トラックID
+    string title     = 2;  // トラック名
+    string artist    = 3;  // アーティスト名
+    string image_url = 4;  // 画像URL
+  }
 }
 
 message GetTrackRequest {
-    string keyword = 1;
+  string id = 1;
 }
 
 message GetTrackReply {
-    string id = 1;
-    string name = 1;
-    string image = 1;
-    string artist = 1;
+  string id        = 1;  // トラックID
+  string title     = 2;  // トラック名
+  string artist    = 3;  // アーティスト名
+  string image_url = 4;  // 画像URL
+
+  int32 popularity       = 5;   // 人気度
+  int32 danceability     = 6;   // 踊りやすさ
+  int32 energy           = 7;   // エネルギー
+  int32 valence          = 8;   // 明るさ
+  int32 acousticness     = 9;   // アコースティック度
+  int32 instrumentalness = 10;  // インストゥルメンタル度
+  int32 liveness         = 11;  // ライブ感
+  int32 speechiness      = 12;  // スピーチ度
+
+  int32 time = 13;  // 再生時間（秒）
+  int32 bpm  = 14;  // BPM
+  Key   key  = 15;  // キー
+  Mode  mode = 16;  // モード
+
+  enum Key {
+    UNKNOWN = 0;
+    C       = 1;
+    C_SHARP = 2;
+    D       = 3;
+    E_FLAT  = 4;
+    E       = 5;
+    F       = 6;
+    F_SHARP = 7;
+    G       = 8;
+    G_SHARP = 9;
+    A       = 10;
+    B_FLAT  = 11;
+    B       = 12;
+  }
+
+  enum Mode {
+    NO_RESULT = 0;
+    MAJOR     = 1;
+    MINOR     = 2;
+  }
 }

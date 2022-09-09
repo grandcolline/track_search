@@ -45,7 +45,7 @@ impl From<TrackEntity> for TrackResponse {
             instrumentalness: ent.instrumentalness.to_string(),
             liveness: ent.liveness.to_string(),
             speechiness: ent.speechiness.to_string(),
-            time: format!("{:?}:{:02}", ent.time/60, ent.time%60),
+            time: format!("{:?}:{:02}", ent.time / 60, ent.time % 60),
             bpm: ent.bpm.round().to_string(),
             key: match ent.key {
                 Key::C => "C".into(),

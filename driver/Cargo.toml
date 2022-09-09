@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 html = { path = "../adapter/application/html" }
+grpc = { path = "../adapter/application/grpc" }
 simple = { path = "../adapter/log/simple" }
 cloud-logging = { path = "../adapter/log/cloud-logging" }
 mock = { path = "../adapter/repository/mock" }
@@ -15,5 +16,3 @@ port = { path = "../port" }
 log = "0.4.17"
 dotenv = "0.15.0"
 clap = "3.2.17"
-# envy = "0.4"
-# serde = { version = "1.0", features = ["derive"] }
