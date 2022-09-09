@@ -26,9 +26,6 @@ docker build -t track-search .
 
 https://grandcolline.github.io/track_search/
 
-### Local
-
-
 
 ## Refs
 
