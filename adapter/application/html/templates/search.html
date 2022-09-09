@@ -1,116 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-   <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>Track Data</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-neutral-900 text-white">
+    <!-- HEADER -->
+    <nav class="p-4"></nav>
 
-  <!-- Bootstrap Icon -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+    <!-- MAIN CONTENTS -->
+    <div class="mx-8 sm:w-[520px] sm:mx-auto">
 
-  <style>
-    @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
-    :root{
-      --font-family-sans-serif: "Open Sans", sans-serif;
-      --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    }
-    body {
-      background: #1F1E24;
-      color: white;
-      font-family: "Open Sans", sans-serif;
-    }
-    h1, h2, h3, h4, h5, h6 {
-      font-family: "Open Sans", sans-serif;
-      margin-top: .5rem;
-      font-weight: bold;
-    }
-    .row {
-      margin-bottom: 1.5rem;
-    }
-    .maxWidth {
-      max-width:540px;
-    }
-    .form-control {
-      border-radius: 100vh;
-      padding: 1rem 1.5em;
-      height: 3em;
-    }
-    .btn-default {
-      border-top-right-radius : 100vh;
-      border-bottom-right-radius : 100vh;
-      padding-right: 1.3rem;
-      padding-left: 1.3rem;
-      height: 3em;
-      background: white;
-      color: black;
-    }
-    a, a:visited{
-      color: inherit;
-      text-decoration: none;
-    }
-    a:hover{
-      color: #1db954;
-      text-decoration: none;
-    }
-  </style>
-  <title>Track Data</title>
-</head>
-<body>
-  <!-- HEADER -->
-  <nav class="navbar p-4">
-  </nav>
-
-  <!-- MAIN CONTENTS -->
-  <div class="container maxWidth">
-    <div class="row">
-      <h1>Search</h1>
+      <!-- FORM -->
+      <h1 class="text-4xl py-2 font-bold">Search</h1>
       <form action="/" method="GET">
-        <div class="input-group">
-          <input type="text" class="form-control" name="q" placeholder="track name" value="{{ keyword }}">
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-default">
-              <i class="bi bi-search"></i>
-            </button>
-          </span>
+        <div class="relative">
+
+          <input type="search" name="q"
+            class="block p-4 m-2 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full
+              border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+            placeholder="track name"
+            value="{{ keyword }}">
+
+          <button type="submit"
+            class="text-white absolute right-2.5 bottom-2.5 bg-gray-50
+            font-medium text-sm px-4 py-2">
+            <svg aria-hidden="true" class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+          </button>
         </div>
       </form>
-    </div>
-    <div class="row">
-      <h1>Result</h1>
 
+      <br />
+
+      <!-- KEKKA -->
+      <h1 class="text-4xl py-2 font-bold">Result</h1>
       {% for track in tracks -%}
-        <div class="col-sm-2 col-3 align-self-center">
-          <a href="/track/{{ track.id }}">
-            <img src="{{ track.image }}" class="img-fluid mx-auto d-block" \>
-          </a>
-        </div>
-        <div class="col-sm-9 col-8">
-          <a href="/track/{{ track.id }}">
-          <h4>{{ track.name }}</h4>
-          <p>by {{ track.artist }}</p>
-          </a>
-        </div>
-        <div class="col-1 align-self-center">
-          <a href="/track/{{ track.id }}">
-            <i class="bi bi-chevron-right"></i>
-          </a>
-        </div>
-        <hr style="margin: 0.5em;">
+        <a href="/track/{{ track.id }}" class="hover:text-green-600">
+          <div class="grid grid-cols-4 gap-4">
+            <div class="m-1 sm:m-3">
+              <img src="{{ track.image }}" \>
+            </div>
+            <div class="col-span-3">
+                <h4 class="text-2xl py-3 font-bold">{{ track.name }}</h4>
+                <p class="text-sm">by {{ track.artist }}</p>
+            </div>
+          </div>
+        </a>
+        <hr class="bg-gray-500 h-px m-3 border-0">
       {% endfor %}
-
     </div>
-  </div>
-
-  <!-- Optional JavaScript; choose one of the two! -->
-  <!-- Option 1: Bootstrap Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
-  <!-- Option 2: Separate Popper and Bootstrap JS -->
-  <!--
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
-  -->
-</body>
+  </body>
 </html>
