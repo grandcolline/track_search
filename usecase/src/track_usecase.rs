@@ -37,7 +37,7 @@ impl TrackUsecase {
         self.log
             .debug(&format!("START get track usecase. id: {}", id));
 
-        return self.repo.find_by_id(id).await;
+        self.repo.find_by_id(id).await
     }
 
     #[cfg_attr(doc, aquamarine::aquamarine)]
@@ -63,6 +63,6 @@ impl TrackUsecase {
         self.log
             .debug(&format!("START search track usecase. key: {}", key));
 
-        return self.repo.search(key).await;
+        self.repo.search(key).await
     }
 }

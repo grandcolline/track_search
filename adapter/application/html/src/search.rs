@@ -48,7 +48,7 @@ async fn search_controller(
 
     // 入力値チェック
     let q = match &query.q {
-        Some(v) => &v,
+        Some(v) => v,
         None => "",
     };
 

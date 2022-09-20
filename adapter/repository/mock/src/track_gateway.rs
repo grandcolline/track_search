@@ -17,6 +17,12 @@ impl TrackGateway {
     }
 }
 
+impl Default for TrackGateway {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 #[async_trait]
 impl TrackRepository for TrackGateway {
     async fn find_by_id(&self, id: &str) -> Result<TrackEntity, ErrorKind> {

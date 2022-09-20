@@ -22,17 +22,15 @@ cargo run -- -e .env
 * Seach Page: http://localhost:8080/
 * Track Psge: http://localhost:8080/track/aaaaaaa
 
-## Build
+## Command for develop
+
+### Build
 
 ```bash
 docker build -t track-search .
 ```
 
-## Documents
-
-https://grandcolline.github.io/track_search/
-
-## Fomatter
+### Fomat
 
 ```bash
 # rust file
@@ -41,6 +39,13 @@ cargo fmt
 # proto file
 find adapter/application/grpc/proto/ -name "*.proto" | xargs clang-format -i
 ```
+
+### Lint
+
+## Documents
+
+https://grandcolline.github.io/track_search/
+
 
 
 ## Refs

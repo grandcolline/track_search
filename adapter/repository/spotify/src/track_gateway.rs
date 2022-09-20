@@ -51,8 +51,8 @@ impl TrackRepository for TrackGateway {
             track.name,
             track.artists[0].name.clone(),
             track.album.images[0].url.clone(),
-            convert_mode(feature.mode),
-            convert_key(feature.key)?,
+            cnv_mode(feature.mode),
+            cnv_key(feature.key)?,
             feature.tempo,
             track.duration.as_secs(),
             Score::try_from(track.popularity as u8)?,
@@ -67,7 +67,7 @@ impl TrackRepository for TrackGateway {
     }
 
     async fn search(&self, key: &str) -> Result<Vec<TrackDto>, ErrorKind> {
-        if key.len() == 0 {
+        if key.is_empty() {
             return Err(ErrorKind::NotFound);
         }
 
@@ -103,7 +103,7 @@ impl TrackRepository for TrackGateway {
     }
 }
 
-fn convert_mode(mode: Modality) -> Mode {
+fn cnv_mode(mode: Modality) -> Mode {
     match mode {
         Modality::Major => Mode::Major,
         Modality::Minor => Mode::Minor,
@@ -111,7 +111,7 @@ fn convert_mode(mode: Modality) -> Mode {
     }
 }
 
-fn convert_key(key: i32) -> Result<Key, ErrorKind> {
+fn cnv_key(key: i32) -> Result<Key, ErrorKind> {
     match key {
         0 => Ok(Key::C),
         1 => Ok(Key::CSahrp),

@@ -12,6 +12,7 @@
 //! * アダプタ層
 //!   * アプリケーション（プライマリアダプタ）
 //!     * [html](../html/index.html)
+//!     * [grpc](../grpc/index.html)
 //!   * ログ
 //!     * [simple](../simple/index.html)
 //!     * [cloud_logging](../cloud_logging/index.html)
@@ -21,8 +22,6 @@
 //! * [ドライバ層](../driver/index.html)
 //!
 use driver::config;
-use html;
-use grpc;
 use port::Container;
 use std::env;
 
@@ -62,13 +61,10 @@ fn main() {
     // let sys = actix::System::new();
 
     // FIXME: here!!
-    let port = match env::var("PORT") {
-        Ok(val) => match val.parse::<u16>() {
-            Ok(val) => val,
-            Err(_) => panic!("FIXME!! PORT"),
-        },
-        Err(_) => panic!("FIXME!! PORT"),
-    };
+    let port: u16 = env::var("PORT")
+        .expect("config error: PORT is required field.")
+        .parse()
+        .expect("config error: PORT is must be a number.");
 
     // Containerの作成(adpter層のDI)
     let container = Container {
@@ -76,17 +72,16 @@ fn main() {
         log_container: config::log::init(),
     };
 
-    if let Err(e) = match env::var("APP") {
+    if let Err(e) = match env::var("APP_ADAPTER") {
         Ok(val) => match val.as_str() {
-            "html" => html::main(port, container),
-            // "grpc" => grpc::main(),
+            "html" => html::serve(port, container),
+            "grpc" => grpc::serve(port, container),
             _ => panic!("[CONFIG ERROR] `{}` is invalid. founnd: {}", "APP", val),
         },
         Err(err) => panic!("[CONFIG ERROR] `{}` not get. err: {}", "APP", err),
     } {
         error!("APPLICATION START ERROR: {:?}!", e);
     }
-
 
     // let _ = sys.run();
 }

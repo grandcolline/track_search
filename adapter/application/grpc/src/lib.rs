@@ -1,5 +1,7 @@
 use tonic::{transport::Server, Request, Response, Status};
 
+use port::Container;
+
 use tracksearch::track_server::{Track, TrackServer};
 use tracksearch::{GetTrackReply, GetTrackRequest, SearchTrackReply, SearchTrackRequest};
 
@@ -54,7 +56,8 @@ impl Track for MyTrack {
 }
 
 #[tokio::main]
-pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
+// pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
+pub async fn serve(_: u16, _: Container) -> anyhow::Result<()> {
     let addr = "[::1]:50051".parse()?;
     let greeter = MyTrack::default();
 

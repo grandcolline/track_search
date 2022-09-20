@@ -1,4 +1,4 @@
-use std::fmt;
+// use std::fmt;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Key {
@@ -16,8 +16,8 @@ pub enum Key {
     B,
 }
 
-impl fmt::Display for Key {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{}", self)
-    }
-}
+// impl fmt::Display for Key {
+//     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+//         write!(f, "{}", self)
+//     }
+// }

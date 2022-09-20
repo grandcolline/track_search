@@ -10,11 +10,12 @@ use search::search_controller;
 
 #[get("/.genki")]
 async fn healthcheck() -> impl Responder {
-    format!("server running!")
+    "server running!".to_string()
 }
 
 #[actix_web::main]
-pub async fn main(port: u16, container: Container) -> std::io::Result<()> {
+// async fn main(port: u16, container: Container) -> std::io::Result<()> {
+pub async fn serve(port: u16, container: Container) -> anyhow::Result<()> {
     let template_file = "adapter/application/html/templates/**/*.html"; // FIXME
     let tera = match Tera::new(template_file) {
         Ok(t) => t,
@@ -35,5 +36,7 @@ pub async fn main(port: u16, container: Container) -> std::io::Result<()> {
     })
     .bind(("0.0.0.0", port))?
     .run()
-    .await
+    .await?;
+
+    Ok(())
 }

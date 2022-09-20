@@ -12,15 +12,9 @@ pub(crate) fn init() -> RepositoryContainer {
 // const PREFIX: &str = "REPO_SPOTIFY_";
 
 fn get_id() -> String {
-    match env::var("REPO_SPOTIFY_ID") {
-        Ok(val) => val,
-        Err(_) => panic!("FIXME!! REPO_SPOTIFY_ID"), // FIXME
-    }
+    env::var("REPO_SPOTIFY_ID").expect("config error: REPO_SPOTIFY_ID is required field.")
 }
 
 fn get_secret() -> String {
-    match env::var("REPO_SPOTIFY_SECRET") {
-        Ok(val) => val,
-        Err(_) => panic!("FIXME!! REPO_SPOTIFY_SECRET"), // FIXME
-    }
+    env::var("REPO_SPOTIFY_SECRET").expect("config error: REPO_SPOTIFY_SECRET is required field.")
 }
