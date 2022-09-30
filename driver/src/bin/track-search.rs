@@ -60,25 +60,25 @@ fn main() {
 
     // let sys = actix::System::new();
 
-    // FIXME: here!!
-    let port: u16 = env::var("PORT")
-        .expect("config error: PORT is required field.")
-        .parse()
-        .expect("config error: PORT is must be a number.");
-
     // Containerの作成(adpter層のDI)
     let container = Container {
         repository_container: config::repository::init(),
         log_container: config::log::init(),
     };
 
+    // FIXME: config に寄せる.
+    let port: u16 = env::var("PORT")
+        .expect("config error: PORT is required field.")
+        .parse()
+        .expect("config error: PORT is must be a number.");
+
     if let Err(e) = match env::var("APP_ADAPTER") {
         Ok(val) => match val.as_str() {
             "html" => html::serve(port, container),
             "grpc" => grpc::serve(port, container),
-            _ => panic!("[CONFIG ERROR] `{}` is invalid. founnd: {}", "APP", val),
+            _ => panic!("[CONFIG ERROR] `{}` is invalid. founnd: {}", "APP_ADAPTER", val),
         },
-        Err(err) => panic!("[CONFIG ERROR] `{}` not get. err: {}", "APP", err),
+        Err(err) => panic!("[CONFIG ERROR] `{}` not get. err: {}", "APP_ADAPTER", err),
     } {
         error!("APPLICATION START ERROR: {:?}!", e);
     }

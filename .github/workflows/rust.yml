@@ -17,6 +17,9 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: test
+      run: echo `echo ${{ github.sha }} | cut -c1-8`
+
     - name: Authenticate Google Cloud
       uses: google-github-actions/auth@v0
       with:
