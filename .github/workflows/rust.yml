@@ -34,6 +34,9 @@ jobs:
     - name: Build
       run: docker buildx build --cache-from=type=gha --cache-to=type=gha,mode=max -t track-search .
 
+    - name: Version
+      run: docker --version
+
     - name: Docker Push
       run: |
         docker tag track-search ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest
