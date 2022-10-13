@@ -14,55 +14,29 @@ jobs:
     name: Build and Push
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    -
+      name: Checkout
       uses: actions/checkout@v3
-
-    - name: test
-      run: echo `echo ${{ github.sha }} | cut -c1-8`
-
-    - name: Version
-      run: docker --version
-
-    - name: help
-      run: docker --help
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-
-    - name: Version2
-      run: docker --version
-
-    - name: help2
-      run: docker --help
-
-    - name: Authenticate Google Cloud
+    -
+      name: Authenticate Google Cloud
       uses: google-github-actions/auth@v0
       with:
         create_credentials_file: true
         workload_identity_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         access_token_lifetime: 1800s
-
-    - name: Configure docker
-      run: gcloud auth configure-docker ${{ secrets.GAR_REGISTRY }}
-
-    #- name: Build and push
-    #  uses: docker/build-push-action@v3
-    #  with:
-    #    context: .
-    #    push: false
-    #    tags: track-serach:latest
-    #    cache-from: type=gha
-    #    cache-to: type=gha,mode=max
-    - name: Build
-      run: /usr/bin/docker buildx build --cache-from type=gha --cache-to type=gha,mode=max --iidfile /tmp/iidfile --tag track-serach:latest --metadata-file /tmp/metadata-file .
-      #run: docker buildx build --cache-from type=gha --cache-to type=gha,mode=max --load -t track-search .
-
-    # - name: Docker Push
-    #   run: |
-    #     docker tag track-search ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest
-    #     docker tag track-search ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:${{ github.sha }}
-    #     docker push --all-tags ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    -
+      name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: true
+        tags: ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest,${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
 
   docs:
     name: Docs
@@ -71,26 +45,27 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
+    -
+      name: Checkout
       uses: actions/checkout@v3
-
-    - name: Install Protoc
+    -
+      name: Install Protoc
       uses: arduino/setup-protoc@v1
       with:
         version: '3.x'
-
-    - name: Run doc
+    -
+      name: Run doc
       run: cargo doc --no-deps
-
-    - name: Setup Pages
+    -
+      name: Setup Pages
       uses: actions/configure-pages@v2
-
-    - name: Upload artifact
+    -
+      name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
         path: .docs
-
-    - name: Deploy to GitHub Pages
+    -
+      name: Deploy to GitHub Pages
       id: deployment
       uses: actions/deploy-pages@v1
 
