@@ -8,6 +8,6 @@ COPY --link . .
 RUN cargo build --release
 
 FROM gcr.io/distroless/cc
-COPY --link --from=builder /app/target/release/track-search /
+COPY --from=builder --link /app/target/release/track-search /
 COPY adapter/application/html/templates /adapter/application/html/templates
 CMD ["./track-search"]
