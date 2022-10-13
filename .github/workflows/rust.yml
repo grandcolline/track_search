@@ -46,14 +46,22 @@ jobs:
     - name: Configure docker
       run: gcloud auth configure-docker ${{ secrets.GAR_REGISTRY }}
 
-    - name: Build
-      run: docker buildx build --cache-from type=gha --cache-to type=gha,mode=max --load -t track-search .
+    - name: Build and push
+      uses: docker/build-push-action@v3
+      with:
+        context: .
+        push: false
+        tags: track-serach:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+    # - name: Build
+    #   run: docker buildx build --cache-from type=gha --cache-to type=gha,mode=max --load -t track-search .
 
-    - name: Docker Push
-      run: |
-        docker tag track-search ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest
-        docker tag track-search ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:${{ github.sha }}
-        docker push --all-tags ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}
+    # - name: Docker Push
+    #   run: |
+    #     docker tag track-search ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:latest
+    #     docker tag track-search ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}:${{ github.sha }}
+    #     docker push --all-tags ${{ secrets.GAR_REGISTRY }}/${{ secrets.GAR_REPOSITORY }}
 
   docs:
     name: Docs
