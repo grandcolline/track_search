@@ -47,7 +47,7 @@ jobs:
       run: gcloud auth configure-docker ${{ secrets.GAR_REGISTRY }}
 
     - name: Build
-      run: docker buildx build --cache-from type=gha --cache-to type=gha,mode=max -t track-search .
+      run: docker buildx build --cache-from type=gha --cache-to type=gha,mode=max --load -t track-search .
 
     - name: Docker Push
       run: |

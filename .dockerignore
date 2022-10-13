@@ -1,4 +1,9 @@
 Dockerfile
 .dockerignore
 .gitignore
+.github/*
+.docs
+.clang-format
+README.md
 target
+*.env
