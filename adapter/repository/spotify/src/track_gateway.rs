@@ -50,7 +50,7 @@ impl TrackRepository for TrackGateway {
             id.into(),
             track.name,
             track.artists[0].name.clone(),
-            track.album.images[0].url.clone(),
+            track.album.images[1].url.clone(),
             cnv_mode(feature.mode),
             cnv_key(feature.key)?,
             feature.tempo,
