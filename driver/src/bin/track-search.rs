@@ -76,7 +76,10 @@ fn main() {
         Ok(val) => match val.as_str() {
             "html" => html::serve(port, container),
             "grpc" => grpc::serve(port, container),
-            _ => panic!("[CONFIG ERROR] `{}` is invalid. founnd: {}", "APP_ADAPTER", val),
+            _ => panic!(
+                "[CONFIG ERROR] `{}` is invalid. founnd: {}",
+                "APP_ADAPTER", val
+            ),
         },
         Err(err) => panic!("[CONFIG ERROR] `{}` not get. err: {}", "APP_ADAPTER", err),
     } {
