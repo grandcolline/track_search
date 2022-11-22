@@ -1,0 +1,28 @@
+name: Setup
+inputs:
+  rust_version:
+    required: false
+    default: stable
+runs:
+  using: composite
+  steps:
+    -
+      name: Cache
+      uses: actions/cache@v3
+      with:
+        path: .target
+        key: build-cache-${{ github.sha }}
+        restore-keys: |
+          build-cache-
+#    -
+#      name: Rust
+#      uses: ATiltedTree/setup-rust@v1
+#      with:
+#        rust-version: {{ inputs.rust_version }}
+#        components: clippy
+    -
+      name: Protoc
+      uses: arduino/setup-protoc@v1
+      with:
+        version: '3.x'
+

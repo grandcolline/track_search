@@ -1,0 +1,39 @@
+name: Build
+inputs:
+  identify_provider:
+    required: true
+  service_account:
+    required: true
+  registry:
+    required: true
+    description: GAR docker registry (ex. asia-northeast1-docker.pkg.dev)
+  repository:
+    required: true
+    description: GAR docker repository.
+runs:
+  using: "composite"
+  steps:
+    -
+      name: Authenticate Google Cloud
+      uses: google-github-actions/auth@v0
+      with:
+        create_credentials_file: true
+        workload_identity_provider: ${{ inputs.identify_provider }}
+        service_account: ${{ inputs.service_account }}
+        access_token_lifetime: 1800s
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    -
+      name: Configure docker
+      run: gcloud auth configure-docker ${{ inputs.registry }}
+      shell: bash
+    -
+      name: Build and Push
+      uses: docker/build-push-action@v3
+      with:
+        context: backend
+        push: true
+        tags: ${{ inputs.registry }}/${{ inputs.repository }}:${{ github.sha }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max

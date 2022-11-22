@@ -1,0 +1,93 @@
+name: pr
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  pages: write
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Setup
+      uses: ./.github/actions/setup
+    -
+      name: Lint
+      run: cargo clippy
+  compile:
+    name: Compile
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Setup
+      uses: ./.github/actions/setup
+    -
+      name: Compile
+      run: cargo check
+  test:
+    name: Test
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Setup
+      uses: ./.github/actions/setup
+    -
+      name: Test
+      run: cargo test
+
+  build:
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Build
+      uses: ./.github/actions/build
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Deploy
+      uses: ./.github/actions/deploy
+      with:
+        tag: pr${{ github.event.number}}
+    -
+      name: Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        header: deploy
+        message: |
+          ## Deploy Success 🚀
+          https://pr${{ github.event.number }}---xlack-backend-c657tjk7sq-an.a.run.app/login
+          <!-- Commit: ${{ github.event.pull_request.head.sha }} -->
+
+
+
