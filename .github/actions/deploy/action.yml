@@ -36,5 +36,5 @@ runs:
         gcloud run deploy ${{ inputs.cloudrunname }} \
           --image ${{ inputs.registry }}/${{ inputs.repository }}:${{ github.sha }} \
           --region asia-northeast1 \
-          --platform managed \
+          --no-traffic \
           --tag=${{ inputs.tag }}
