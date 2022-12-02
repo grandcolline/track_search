@@ -73,18 +73,22 @@ jobs:
       name: Test
       run: cargo test
 
-#  build:
-#    name: Build
-#    needs: test
-#    runs-on: ubuntu-latest
-#    steps:
-#    -
-#      name: Checkout
-#      uses: actions/checkout@v3
-#    -
-#      name: Build
-#      uses: ./.github/actions/build
-#
+  build:
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Build
+      uses: ./.github/actions/build
+      with:
+        identify_provider: {{ secrets.IDENTIFY_PROVIDER }}
+        service_account: {{ secrets.SERVICE_ACCOUNT }}
+        repository: {{ secrets.GAR_REPOSITORY }}
+
 #  deploy:
 #    name: Deploy
 #    needs: build

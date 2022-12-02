@@ -1,8 +1,5 @@
 name: Setup
 inputs:
-  rust_version:
-    required: false
-    default: stable
   cache_key:
     required: false
     default: ""

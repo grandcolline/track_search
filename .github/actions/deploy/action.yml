@@ -1,18 +1,20 @@
 name: Deploy
 inputs:
   identify_provider:
+    description: GCP Workload Identity Pools (ex. projects/0000000000/locations/global/workloadIdentityPools/xxxx/providers/xxxx)
     required: true
   service_account:
+    description: GCP Service Account (ex. xxxxx@xxxxx.iam.gserviceaccount.com)
     required: true
   registry:
-    required: true
-    description: GAR docker registry (ex. asia-northeast1-docker.pkg.dev)
+    description: GAR docker registry
+    default: asia-northeast1-docker.pkg.dev
   repository:
     required: true
     description: GAR docker repository.
   tag:
-    description: "deploy tag of cloud run"
     required: true
+    description: "deploy tag of cloud run"
 runs:
   using: composite
   steps:
