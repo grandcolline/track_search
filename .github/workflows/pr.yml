@@ -85,9 +85,9 @@ jobs:
       name: Build
       uses: ./.github/actions/build
       with:
-        identify_provider: {{ secrets.IDENTIFY_PROVIDER }}
-        service_account: {{ secrets.SERVICE_ACCOUNT }}
-        repository: {{ secrets.GAR_REPOSITORY }}
+        identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        repository: ${{ secrets.GAR_REPOSITORY }}
 
 #  deploy:
 #    name: Deploy
