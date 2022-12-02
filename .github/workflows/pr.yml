@@ -89,17 +89,20 @@ jobs:
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         repository: ${{ secrets.GAR_REPOSITORY }}
 
-#  deploy:
-#    name: Deploy
-#    needs: build
-#    runs-on: ubuntu-latest
-#    steps:
-#    -
-#      name: Checkout
-#      uses: actions/checkout@v3
-#    -
-#      name: Deploy
-#      uses: ./.github/actions/deploy
-#      with:
-#        tag: pr${{ github.event.number}}
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Deploy
+      uses: ./.github/actions/deploy
+      with:
+        identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        repository: ${{ secrets.GAR_REPOSITORY }}
+        tag: pr${{ github.event.number}} # pr number
 
