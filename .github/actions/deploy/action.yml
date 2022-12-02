@@ -12,6 +12,9 @@ inputs:
   repository:
     required: true
     description: GAR docker repository.
+  cloudrunname:
+    description: "service name of Cloud Run"
+    default: "track-search"
   tag:
     required: true
     description: "deploy tag of cloud run"
@@ -30,7 +33,7 @@ runs:
       name: Deploy
       shell: bash
       run: |
-        gcloud run deploy xlack-backend \
+        gcloud run deploy ${{ inputs.cloudrunname }} \
           --image ${{ inputs.registry }}/${{ inputs.repository }}:${{ github.sha }} \
           --region asia-northeast1 \
           --platform managed \
