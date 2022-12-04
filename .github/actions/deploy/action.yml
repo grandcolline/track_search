@@ -13,12 +13,17 @@ inputs:
   repository:
     required: true
     description: GAR docker repository.
-  cloudrunname:
+  service:
     description: service name of Cloud Run
     default: track-search
   tag:
     required: true
     description: deploy tag of cloud run
+
+outputs:
+  url:
+    description: Deploy URL
+    value: ${{ steps.output.outputs.url }}
 
 runs:
   using: composite
@@ -35,8 +40,14 @@ runs:
       name: Deploy
       shell: bash
       run: |
-        gcloud run deploy ${{ inputs.cloudrunname }} \
+        gcloud run deploy ${{ inputs.service }} \
           --image ${{ inputs.registry }}/${{ inputs.repository }}:${{ github.sha }} \
           --region asia-northeast1 \
           --no-traffic \
           --tag=${{ inputs.tag }}
+    -
+      name: Output
+      id: output
+      shell: bash
+      run: |
+        echo "url=$(gcloud run services describe ${{ inputs.service }} --platform managed --region asia-northeast1 --format 'value(status.url)' | sed 's/https:\/\//https:\/\/${{ inputs.tag }}---/')" >> $GITHUB_OUTPUT

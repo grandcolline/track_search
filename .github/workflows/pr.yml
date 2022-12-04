@@ -93,12 +93,15 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
     steps:
     -
       name: Checkout
       uses: actions/checkout@v3
     -
       name: Deploy
+      id: deploy
       uses: ./.github/actions/deploy
       with:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
@@ -108,14 +111,17 @@ jobs:
 
   docs:
     name: Docs
-    needs: compile
+    needs: test
     runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.docs.outputs.url }}
     steps:
     -
       name: Checkout
       uses: actions/checkout@v3
     -
       name: Docs
+      id: docs
       uses: ./.github/actions/docs
       with:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
@@ -137,9 +143,10 @@ jobs:
         header: comment
         message: |
           ## Deploy Success 🚀
+
           |      |    |
           |:----:|:---|
-          | App  |    |
-          | Docs |    |
+          | App  | ${{ needs.deploy.outputs.url }} |
+          | Docs | ${{ needs.docs.outputs.url }}   |
 
           Commit: ${{ github.event.pull_request.head.sha }}
