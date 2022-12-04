@@ -94,10 +94,6 @@ jobs:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         repository: ${{ secrets.GAR_REPOSITORY }}
-    -
-      name: debug echo
-      run: |
-        echo "${{ steps.build.outputs.image }}"
 
   deploy:
     name: Deploy
