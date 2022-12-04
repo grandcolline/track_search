@@ -121,3 +121,25 @@ jobs:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         tag: pr${{ github.event.number}} # pr number
+
+  comment:
+    name: comment
+    needs:
+      - deploy
+      - docs
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        header: comment
+        message: |
+          ## Deploy Success 🚀
+          |      |    |
+          |:----:|:---|
+          | App  |    |
+          | Docs |    |
+
+          Commit: ${{ github.event.pull_request.head.sha }}

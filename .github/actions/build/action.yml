@@ -1,4 +1,5 @@
 name: Build
+
 inputs:
   identify_provider:
     description: GCP Workload Identity Pools (ex. projects/0000000000/locations/global/workloadIdentityPools/xxxx/providers/xxxx)
@@ -12,6 +13,18 @@ inputs:
   repository:
     description: GAR docker repository.
     required: true
+
+outputs:
+  imageid:
+    description: 'Image ID'
+    value: ${{ steps.build-and-push.outputs.imageid }}
+  digest:
+    description: 'Image digest'
+    value: ${{ steps.build-and-push.outputs.digest }}
+  metadata:
+    description: 'Build result metadata'
+    value: ${{ steps.build-and-push.outputs.metadata }}
+
 runs:
   using: "composite"
   steps:
@@ -32,6 +45,7 @@ runs:
       shell: bash
     -
       name: Build and Push
+      id: build-and-push
       uses: docker/build-push-action@v3
       with:
         push: true

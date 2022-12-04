@@ -12,6 +12,10 @@ inputs:
   tag:
     required: true
     description: deploy tag of cloud run
+outputs:
+  url:
+    description: Upload URL
+    value: ${{ steps.output.outputs.url }}
 runs:
   using: composite
   steps:
@@ -42,3 +46,8 @@ runs:
       with:
         path: ${{ inputs.tag }}
         destination: ${{ inputs.destination }}
+    -
+      name: Output
+      id: output
+      run: echo "url=https://storage.googleapis.com/${{ inputs.destination }}/${{ inputs.tag }}/index.html" >> $GITHUB_OUTPUT
+      shell: bash

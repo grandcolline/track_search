@@ -1,4 +1,5 @@
 name: Deploy
+
 inputs:
   identify_provider:
     description: GCP Workload Identity Pools (ex. projects/0000000000/locations/global/workloadIdentityPools/xxxx/providers/xxxx)
@@ -18,6 +19,7 @@ inputs:
   tag:
     required: true
     description: deploy tag of cloud run
+
 runs:
   using: composite
   steps:
