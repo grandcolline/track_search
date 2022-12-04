@@ -129,7 +129,7 @@ jobs:
         tag: pr${{ github.event.number}} # pr number
 
   comment:
-    name: comment
+    name: Comment
     needs:
       - deploy
       - docs
@@ -144,8 +144,8 @@ jobs:
         message: |
           ## Deploy Success 🚀
 
-          |      |    |
-          |:----:|:---|
+          | Name | URL                             |
+          |:----:|:--------------------------------|
           | App  | ${{ needs.deploy.outputs.url }} |
           | Docs | ${{ needs.docs.outputs.url }}   |
 
