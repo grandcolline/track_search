@@ -7,12 +7,9 @@ inputs:
   service_account:
     description: GCP Service Account (ex. xxxxx@xxxxx.iam.gserviceaccount.com)
     required: true
-  registry:
-    description: GAR docker registry
-    default: asia-northeast1-docker.pkg.dev
-  repository:
+  image:
+    description: docker image
     required: true
-    description: GAR docker repository.
   service:
     description: service name of Cloud Run
     default: track-search
@@ -41,7 +38,7 @@ runs:
       shell: bash
       run: |
         gcloud run deploy ${{ inputs.service }} \
-          --image ${{ inputs.registry }}/${{ inputs.repository }}:${{ github.sha }} \
+          --image ${{ inputs.image }} \
           --region asia-northeast1 \
           --no-traffic \
           --tag=${{ inputs.tag }}

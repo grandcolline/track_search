@@ -80,6 +80,8 @@ jobs:
     name: Build
     needs: test
     runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.build.outputs.image }}
     steps:
     -
       name: Checkout
@@ -95,9 +97,7 @@ jobs:
     -
       name: debug echo
       run: |
-        echo "${{ steps.build.outputs.imageid }}"
-        echo "${{ steps.build.outputs.digest }}"
-        echo "${{ steps.build.outputs.metadata }}"
+        echo "${{ steps.build.outputs.image }}"
 
   deploy:
     name: Deploy
@@ -116,7 +116,7 @@ jobs:
       with:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
-        repository: ${{ secrets.GAR_REPOSITORY }}
+        image: ${{ needs.build.outputs.image }}
         tag: pr${{ github.event.number}} # pr number
 
   docs:

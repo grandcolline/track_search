@@ -15,14 +15,14 @@ inputs:
     required: true
 
 outputs:
-  imageid:
-    description: 'Image ID'
-    value: ${{ steps.build-and-push.outputs.imageid }}
+  image:
+    description: Image
+    value: ${{ steps.image.outputs.image }}
   digest:
-    description: 'Image digest'
+    description: Image digest
     value: ${{ steps.build-and-push.outputs.digest }}
   metadata:
-    description: 'Build result metadata'
+    description: Build result metadata
     value: ${{ steps.build-and-push.outputs.metadata }}
 
 runs:
@@ -41,8 +41,8 @@ runs:
       uses: docker/setup-buildx-action@v2
     -
       name: Configure docker
-      run: gcloud auth configure-docker ${{ inputs.registry }}
       shell: bash
+      run: gcloud auth configure-docker ${{ inputs.registry }}
     -
       name: Build and Push
       id: build-and-push
@@ -52,3 +52,10 @@ runs:
         tags: ${{ inputs.registry }}/${{ inputs.repository }}:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+    -
+      name: Get Image
+      id: image
+      shell: bash
+      run: |
+        echo "image=$(echo ${{ steps.build-and-push.outputs.metadata }} | jq -r ."image.name")" >> $GITHUB_OUTPUT
+
