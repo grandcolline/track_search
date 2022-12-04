@@ -1,4 +1,5 @@
-name: Deploy
+name: Docs
+
 inputs:
   identify_provider:
     description: GCP Workload Identity Pools (ex. projects/0000000000/locations/global/workloadIdentityPools/xxxx/providers/xxxx)
@@ -11,7 +12,11 @@ inputs:
     default: track-search-docs
   tag:
     required: true
-    description: deploy tag of cloud run
+    description: deploy tag of Documents
+  github_token:
+    description: GitHub token to use to avoid rate limiter
+    required: true
+
 outputs:
   url:
     description: Upload URL
@@ -24,6 +29,7 @@ runs:
       uses: ./.github/actions/setup
       with:
         cache_key: doc
+        github_token: ${{ inputs.github_token }}
     -
       name: Build Docs
       run: cargo doc --no-deps
