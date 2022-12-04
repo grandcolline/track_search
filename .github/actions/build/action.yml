@@ -57,5 +57,5 @@ runs:
       id: image
       shell: bash
       run: |
-        echo "image=$(echo ${{ steps.build-and-push.outputs.metadata }} | jq -r ."image.name")" >> $GITHUB_OUTPUT
+        echo "image=$(echo '${{ steps.build-and-push.outputs.metadata }}' | jq -r '."image.name"')" >> $GITHUB_OUTPUT
 
