@@ -1,0 +1,159 @@
+name: pr
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: write
+  pages: write
+
+jobs:
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Format
+      run: cargo fmt --check
+
+  compile:
+    name: Compile
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Setup
+      uses: ./.github/actions/setup
+      with:
+        cache_key: compile
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    -
+      name: Compile
+      run: cargo check
+
+  lint:
+    name: Lint
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Setup
+      uses: ./.github/actions/setup
+      with:
+        cache_key: lint
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    -
+      name: Lint
+      run: cargo clippy
+
+  test:
+    name: Test
+    needs: compile
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Setup
+      uses: ./.github/actions/setup
+      with:
+        cache_key: test
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    -
+      name: Test
+      run: cargo test
+
+  build:
+    name: Build
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.build.outputs.image }}
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Build
+      id: build
+      uses: ./.github/actions/build
+      with:
+        identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        repository: ${{ secrets.GAR_REPOSITORY }}
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.deploy.outputs.url }}
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Deploy
+      id: deploy
+      uses: ./.github/actions/deploy
+      with:
+        identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        repository: ${{ secrets.GAR_REPOSITORY }}
+        tag: pr${{ github.event.number}} # pr number
+
+  docs:
+    name: Docs
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      url: ${{ steps.docs.outputs.url }}
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Docs
+      id: docs
+      uses: ./.github/actions/docs
+      with:
+        identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        tag: pr${{ github.event.number}} # pr number
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+  comment:
+    name: Comment
+    needs:
+      - deploy
+      - docs
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        header: comment
+        message: |
+          ## Deploy Success 🚀
+
+          | Name | URL                             |
+          |:----:|:--------------------------------|
+          | App  | ${{ needs.deploy.outputs.url }} |
+          | Docs | ${{ needs.docs.outputs.url }}   |
+
+          Commit: ${{ github.event.pull_request.head.sha }}

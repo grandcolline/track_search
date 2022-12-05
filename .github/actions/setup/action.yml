@@ -1,0 +1,34 @@
+name: Setup
+
+inputs:
+  cache_key:
+    required: false
+    default: ""
+  github_token:
+    description: GitHub token to use to avoid rate limiter
+    required: true
+
+runs:
+  using: composite
+  steps:
+    -
+      name: Cache
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/bin/
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+          target/
+        key: build-cache-${{ github.sha }}-${{ inputs.cache_key }}
+        restore-keys: |
+          build-cache-${{ github.sha }}-
+          build-cache-
+    -
+      name: Protoc
+      uses: arduino/setup-protoc@v1
+      with:
+        version: '3.x'
+        repo-token: ${{ inputs.github_token }}
+

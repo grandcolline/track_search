@@ -1,0 +1,56 @@
+name: Deploy
+
+inputs:
+  identify_provider:
+    description: GCP Workload Identity Pools (ex. projects/0000000000/locations/global/workloadIdentityPools/xxxx/providers/xxxx)
+    required: true
+  service_account:
+    description: GCP Service Account (ex. xxxxx@xxxxx.iam.gserviceaccount.com)
+    required: true
+  image:
+    description: docker image
+    required: true
+  service:
+    description: service name of Cloud Run
+    default: track-search
+  registry:
+    description: GAR docker registry
+    default: asia-northeast1-docker.pkg.dev
+  repository:
+    description: GAR docker repository.
+    required: true
+  tag:
+    required: true
+    description: deploy tag of cloud run
+
+outputs:
+  url:
+    description: Deploy URL
+    value: ${{ steps.deploy.outputs.url }}
+
+runs:
+  using: composite
+  steps:
+    -
+      name: Authenticate Google Cloud
+      uses: google-github-actions/auth@v0
+      with:
+        create_credentials_file: true
+        workload_identity_provider: ${{ inputs.identify_provider }}
+        service_account: ${{ inputs.service_account }}
+        access_token_lifetime: 1800s
+    -
+      name: Deploy
+      id: deploy
+      shell: bash
+      run: |
+        gcloud run deploy ${{ inputs.service }} \
+          --image ${{ inputs.registry }}/${{ inputs.repository }}:${{ github.sha }} \
+          --region asia-northeast1 \
+          --no-traffic \
+          --tag=${{ inputs.tag }}
+        # output deployed URL
+        echo "url=$(gcloud run services describe ${{ inputs.service }} \
+          --region asia-northeast1 \
+          --format 'value(status.url)' \
+          | sed 's/https:\/\//https:\/\/${{ inputs.tag }}---/')" >> $GITHUB_OUTPUT

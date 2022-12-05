@@ -1,0 +1,60 @@
+name: main
+
+on:
+  push:
+    branches:
+    - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Build
+      uses: ./.github/actions/build
+      with:
+        identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        repository: ${{ secrets.GAR_REPOSITORY }}
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Deploy
+      id: deploy
+      uses: ./.github/actions/deploy
+      with:
+        identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        repository: ${{ secrets.GAR_REPOSITORY }}
+        tag: main
+
+  docs:
+    name: Docs
+    runs-on: ubuntu-latest
+    steps:
+    -
+      name: Checkout
+      uses: actions/checkout@v3
+    -
+      name: Docs
+      uses: ./.github/actions/docs
+      with:
+        identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
+        tag: main
+        github-token: ${{ secrets.GITHUB_TOKEN }}
