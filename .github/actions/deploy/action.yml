@@ -26,7 +26,7 @@ inputs:
 outputs:
   url:
     description: Deploy URL
-    value: ${{ steps.output.outputs.url }}
+    value: ${{ steps.deploy.outputs.url }}
 
 runs:
   using: composite
@@ -41,6 +41,7 @@ runs:
         access_token_lifetime: 1800s
     -
       name: Deploy
+      id: deploy
       shell: bash
       run: |
         gcloud run deploy ${{ inputs.service }} \
@@ -48,9 +49,8 @@ runs:
           --region asia-northeast1 \
           --no-traffic \
           --tag=${{ inputs.tag }}
-    -
-      name: Output
-      id: output
-      shell: bash
-      run: |
-        echo "url=$(gcloud run services describe ${{ inputs.service }} --platform managed --region asia-northeast1 --format 'value(status.url)' | sed 's/https:\/\//https:\/\/${{ inputs.tag }}---/')" >> $GITHUB_OUTPUT
+        # output deployed URL
+        echo "url=$(gcloud run services describe ${{ inputs.service }} \
+          --region asia-northeast1 \
+          --format 'value(status.url)' \
+          | sed 's/https:\/\//https:\/\/${{ inputs.tag }}---/')" >> $GITHUB_OUTPUT
