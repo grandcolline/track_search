@@ -40,7 +40,7 @@ jobs:
       with:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
-        image: ${{ needs.build.outputs.image }}
+        repository: ${{ secrets.GAR_REPOSITORY }}
         tag: main
 
   docs:
