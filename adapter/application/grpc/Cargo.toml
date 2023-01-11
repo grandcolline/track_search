@@ -6,10 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-anyhow = "1.0.65"
+anyhow = "1.0"
 tonic = "0.8"
 prost = "0.11"
-tokio = { version = "1.0", features = ["macros", "rt-multi-thread"] }
+tokio = { version = "1.24", features = ["macros", "rt-multi-thread"] }
 entity = { path = "../../../entity" }
 port = { path = "../../../port" }
 usecase = { path = "../../../usecase" }

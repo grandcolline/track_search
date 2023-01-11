@@ -25,7 +25,7 @@ use driver::config;
 use port::Container;
 use std::env;
 
-use clap::{App, Arg};
+use clap::{Arg, Command};
 use dotenv::from_path;
 
 #[macro_use]
@@ -33,31 +33,36 @@ extern crate log;
 
 /// 起動メソッド
 fn main() {
-    // 起動CLI設定
-    let app: App = App::new("track-search")
+    // 起動CLI設定 & 引数取得
+    let matches = Command::new("track-search")
         .version("v0.1.0")
         .about("Search track application server")
         .arg(
-            Arg::with_name("envfile")
+            Arg::new("envfile")
                 .help("envfile path")
                 .long("envfile")
-                .short('e')
-                .takes_value(true),
-        );
-    let matches = app.get_matches();
+                .short('e'),
+        )
+        .get_matches();
 
     // 環境変数ファイルの読み込み
-    if let Some(envfile) = matches.value_of("envfile") {
+    if let Some(envfile) = matches.get_one::<String>("envfile") {
         println!("Load environment. (envfile: {})", envfile);
         from_path(envfile).ok();
     }
 
-    // std::env::set_var("RUST_BACKTRACE", "1");
+    // match matches.get_many::<String>("envfile") {
+    //     Ok(_, file) => {
+    //       println!("Load environment. (envfile: {})", file);
+    //       from_path(file).ok();
+    //     },
+    //     Err(err) => panic!("envfile parse error {}", e),
+    // }
 
+    // std::env::set_var("RUST_BACKTRACE", "1");
     // std::env::set_var("RUST_LOG", "actix_web=info");
 
     // env_logger::init();
-
     // let sys = actix::System::new();
 
     // Containerの作成(adpter層のDI)

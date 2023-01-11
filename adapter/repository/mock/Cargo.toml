@@ -8,5 +8,5 @@ edition = "2021"
 [dependencies]
 entity = { path = "../../../entity" }
 port = { path = "../../../port" }
-async-trait = "0.1.50"
+async-trait = "0.1"
 
