@@ -57,4 +57,4 @@ jobs:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         tag: main
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.GITHUB_TOKEN }}
