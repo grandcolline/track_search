@@ -13,6 +13,6 @@ cloud-logging = { path = "../adapter/log/cloud-logging" }
 mock = { path = "../adapter/repository/mock" }
 spotify = { path = "../adapter/repository/spotify" }
 port = { path = "../port" }
-log = "0.4.17"
-dotenv = "0.15.0"
-clap = "3.2.17"
+log = "0.4"
+dotenv = "0.15"
+clap = "4.0"
