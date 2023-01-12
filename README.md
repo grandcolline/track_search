@@ -8,20 +8,22 @@ https://storage.googleapis.com/track-search-docs/main/index.html
 
 ## How to running application in local
 
-1. Install rust
+### 1. Install rust
 
 | name  | version |
 | :---: | :------ |
-| Rust  | 1.63.0  |
-| Cargo | 1.63.0  |
+| Rust  | 1.66.0  |
+| Cargo | 1.66.0  |
 
-2. Exec command
+refs: https://www.rust-lang.org/tools/install
+
+### 2. Exec command
 
 ```bash
 cargo run -- -e .env
 ```
 
-3. Check it 🤟
+### 3. Check it 🤟
 
 - Search Page: http://localhost:8080/
 - Track Psge: http://localhost:8080/track/aaaaaaa
@@ -29,20 +31,20 @@ cargo run -- -e .env
 <details>
 <summary>If you use gRPC mode...</summary>
 
-1. Rewrite `.env`
+### 1. Rewrite `.env`
 
 ```diff
 - APP_ADAPTER=html
 + APP_ADAPTER=grpc
 ```
 
-2. Exec command
+### 2. Exec command
 
 ```bash
 cargo run -- -e .env
 ```
 
-3. Check it 🤟
+### 3. Check it 🤟
 
 ```bash
 # search tarck
