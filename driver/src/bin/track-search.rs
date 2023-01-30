@@ -2,24 +2,24 @@
 //!
 //! `track-search` は楽曲の検索・情報提供を行うアプリケーションです。
 //!
-//! ## アーキテクチャ
+//! ## architecture
 //!
 //! ![architecture](../../images/architecture.drawio.svg)
 //!
-//! * [エンティティ層](../entity/index.html)
-//! * [ポート](../port/index.html)
-//! * [ユースケース層](../usecase/index.html)
-//! * アダプタ層
-//!   * アプリケーション（プライマリアダプタ）
+//! * [Entity Layer](../entity/index.html)
+//! * [Port](../port/index.html)
+//! * [Usecase Layer](../usecase/index.html)
+//! * Adapter Layer
+//!   * application (primary adapter)
 //!     * [html](../html/index.html)
 //!     * [grpc](../grpc/index.html)
-//!   * ログ
+//!   * log
 //!     * [simple](../simple/index.html)
 //!     * [cloud_logging](../cloud_logging/index.html)
-//!   * レポジトリ
+//!   * repository
 //!     * [mock](../mock/index.html)
 //!     * [spotify](../spotify/index.html)
-//! * [ドライバ層](../driver/index.html)
+//! * [Driver Layer](../driver/index.html)
 //!
 use driver::config;
 use port::Container;
@@ -65,7 +65,7 @@ fn main() {
     // env_logger::init();
     // let sys = actix::System::new();
 
-    // Containerの作成(adpter層のDI)
+    // Container の作成(Adpter Layer のDI)
     let container = Container {
         repository_container: config::repository::init(),
         log_container: config::log::init(),

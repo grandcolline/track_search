@@ -11,17 +11,17 @@ use crate::score::Score;
 ///  * Entityである必要が今のところないのではないか
 #[derive(Debug, Clone)]
 pub struct TrackEntity {
-    /// TrackID
+    /// Track ID
     pub id: String,
-    /// Track名
+    /// Track Name
     pub title: String,
-    /// アーティスト名
+    /// Artist Name
     pub artist: String,
-    /// Track画像URL
+    /// Track Image URL
     pub image: String,
-    /// モード(旋法)
+    /// Mode (旋法)
     pub mode: Mode,
-    /// キー
+    /// Key
     pub key: Key,
     /// BPM
     pub bpm: f32,

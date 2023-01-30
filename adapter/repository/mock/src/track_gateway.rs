@@ -25,7 +25,7 @@ impl Default for TrackGateway {
 
 #[async_trait]
 impl TrackRepository for TrackGateway {
-    async fn find_by_id(&self, id: &str) -> Result<TrackEntity, ErrorKind> {
+    async fn read(&self, id: &str) -> Result<TrackEntity, ErrorKind> {
         Ok(TrackEntity::from(
             id.into(),
             "クロノスタシス".into(),
@@ -46,7 +46,7 @@ impl TrackRepository for TrackGateway {
         ))
     }
 
-    async fn search(&self, _: &str) -> Result<Vec<TrackDto>, ErrorKind> {
+    async fn find_by_keyword(&self, _: &str) -> Result<Vec<TrackDto>, ErrorKind> {
         Ok(vec![
             TrackDto::from(
                 "aaaaa".into(),

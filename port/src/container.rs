@@ -1,6 +1,5 @@
 use std::sync::Arc;
 
-// FIXME: crate内の参照の仕方ってこれでいいんだっけ？
 use crate::log::Log;
 use crate::repository::TrackRepository;
 
@@ -19,3 +18,8 @@ pub struct Container {
     pub repository_container: RepositoryContainer,
     pub log_container: LogContainer,
 }
+
+pub trait Application {
+    fn serve(&self, container: Container) -> anyhow::Result<()>;
+}
+

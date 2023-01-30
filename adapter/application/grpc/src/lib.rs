@@ -57,8 +57,8 @@ impl Track for MyTrack {
 
 #[tokio::main]
 // pub async fn main() -> Result<(), Box<dyn std::error::Error>> {
-pub async fn serve(_: u16, _: Container) -> anyhow::Result<()> {
-    let addr = "[::1]:50051".parse()?;
+pub async fn serve(port: u16, _: Container) -> anyhow::Result<()> {
+    let addr = (String::from("[::1]:") + &port.to_string()).parse()?; // "[::1]:8080"
     let greeter = MyTrack::default();
 
     Server::builder()

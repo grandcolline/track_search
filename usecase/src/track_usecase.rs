@@ -15,54 +15,43 @@ pub struct TrackUsecase {
 // impl<Repo: TrackRepository, Logger: Log> TrackUsecase<Repo, Logger> {
 impl TrackUsecase {
     #[cfg_attr(doc, aquamarine::aquamarine)]
-    /// # 楽曲を取得する
+    /// # Get Track
     ///
-    /// ## Prams
-    /// * トラックID
-    ///
-    /// ## Return
-    /// * Result
-    ///   * トラックエンティティ
-    ///   * ErrorKind
+    /// get Track Infomartion by Track ID.
     ///
     /// ## Sequence
     /// ```mermaid
     /// sequenceDiagram
-    ///   アプリケーション     ->> +UC「楽曲を取得する」 : トラックID
-    ///   UC「楽曲を取得する」 ->> +トラックレポジトリ   : IDでトラックを検索する(トラックID)
-    ///   トラックレポジトリ   ->> -UC「楽曲を取得する」 : トラックエンティティ
-    ///   UC「楽曲を取得する」 ->> -アプリケーション     : Result<トラックエンティティ, エラー>
+    ///   Application      ->> +UC get_track    : track ID
+    ///   UC get_track     ->> +TrackRepository : read (track ID)
+    ///   TrackRepository -->> -UC get_track    : TrackEntity
+    ///   UC get_track    -->> -Application     : Result<TrackEntity, Error>
     /// ```
     pub async fn get_track(&self, id: &str) -> Result<TrackEntity, ErrorKind> {
         self.log
             .debug(&format!("START get track usecase. id: {}", id));
 
-        self.repo.find_by_id(id).await
+        self.repo.read(id).await
     }
 
     #[cfg_attr(doc, aquamarine::aquamarine)]
-    /// # 楽曲を検索する
+    /// # Search Tracks
     ///
-    /// ## Prams
-    /// * キーワード - String
-    ///
-    /// ## Return
-    /// * Result
-    ///   * トラックエンティティリスト
-    ///   * ErrorKind
+    /// Application から keyword を受け取り、その文字列を含む Track を探し、
+    /// TrackDto のリストを返却する
     ///
     /// ## Sequence
     /// ```mermaid
-    /// sequenceDiagram
-    ///   アプリケーション     ->> +UC「楽曲を検索する」 : キーワード
-    ///   UC「楽曲を検索する」 ->> +トラックレポジトリ   : トラックを検索する(キーワード)
-    ///   トラックレポジトリ   ->> -UC「楽曲を検索する」 : トラックエンティティリスト
-    ///   UC「楽曲を検索する」 ->> -アプリケーション     : Result<トラックエンティティリスト, エラー>
+    ///   sequenceDiagram
+    ///     Application      ->> +UC search_track: keyword
+    ///     UC search_track  ->> +TrackRepository: find_by_keyword (keyword)
+    ///     TrackRepository -->> -UC search_track: Vec<TrackDto>
+    ///     UC search_track -->> -Application    : Result<Vec<TrackDto>, Error>
     /// ```
     pub async fn search_track(&self, key: &str) -> Result<Vec<TrackDto>, ErrorKind> {
         self.log
             .debug(&format!("START search track usecase. key: {}", key));
 
-        self.repo.search(key).await
+        self.repo.find_by_keyword(key).await
     }
 }

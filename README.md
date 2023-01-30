@@ -49,7 +49,7 @@ cargo run -- -e .env
 $ grpcurl -plaintext \
     -proto adapter/application/grpc/proto/track.proto \
     -d '{"keyword":"aaaa"}' \
-    localhost:8080 tracksearch.Track.SerachTrack
+    localhost:8080 tracksearch.Track.SearchTrack
 
 # get tarck
 $ grpcurl -plaintext \
