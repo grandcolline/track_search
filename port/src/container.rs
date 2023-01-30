@@ -22,4 +22,3 @@ pub struct Container {
 pub trait Application {
     fn serve(&self, container: Container) -> anyhow::Result<()>;
 }
-
