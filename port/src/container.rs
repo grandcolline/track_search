@@ -18,7 +18,3 @@ pub struct Container {
     pub repository_container: RepositoryContainer,
     pub log_container: LogContainer,
 }
-
-pub trait Application {
-    fn serve(&self, container: Container) -> anyhow::Result<()>;
-}
