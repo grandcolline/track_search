@@ -35,7 +35,7 @@ impl Track for MyTrack {
             liveness: 34,
             speechiness: 34,
             time: 340,
-            bpm: 120,
+            bpm: 122,
             key: 3,
             mode: 2,
         };
