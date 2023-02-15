@@ -27,6 +27,6 @@ runs:
           build-cache-
     -
       name: Install Protoc
-      run: apt install -y protobuf-compiler
+      run: sudo apt install -y protobuf-compiler
       shell: bash
 
