@@ -28,4 +28,5 @@ runs:
     -
       name: Install Protoc
       run: apt install -y protobuf-compiler
+      shell: bash
 
