@@ -7,11 +7,8 @@ inputs:
   service_account:
     description: GCP Service Account (ex. xxxxx@xxxxx.iam.gserviceaccount.com)
     required: true
-  registry:
-    description: GAR docker registry
-    default: asia-northeast1-docker.pkg.dev
-  repository:
-    description: GAR docker repository.
+  image:
+    description: docker image (ex. asia-northeast1-docker.pkg.dev/gcp-project/xxxx/yyyy)
     required: true
 
 runs:
@@ -38,7 +35,7 @@ runs:
       uses: docker/build-push-action@v4
       with:
         push: true
-        tags: ${{ inputs.registry }}/${{ inputs.repository }}:${{ github.sha }}
+        tags: ${{ inputs.image }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
 

@@ -23,7 +23,7 @@ jobs:
       with:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
-        repository: ${{ secrets.GAR_REPOSITORY }}
+        image: ${{ secrets.GAR_REGISTRY }}:${{ github.sha }}
 
   deploy:
     name: Deploy
@@ -41,6 +41,7 @@ jobs:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
         repository: ${{ secrets.GAR_REPOSITORY }}
+        image: ${{ secrets.GAR_REGISTRY }}:${{ github.sha }}
         tag: main
 
   docs:
