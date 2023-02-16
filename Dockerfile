@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-FROM rust:1.66 as builder
+FROM rust:1.67 as builder
 RUN apt update && apt install -y protobuf-compiler
 
 WORKDIR /app

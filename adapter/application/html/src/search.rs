@@ -52,13 +52,13 @@ async fn search_controller(
         None => "",
     };
 
-    // UC作成
+    // UC 作成
     let uc = TrackUsecase {
         repo: container.repository_container.track_repository.clone(),
         log: container.log_container.log.clone(),
     };
 
-    // UC実行
+    // UC 実行
     let dtos = match uc.search_track(q).await {
         Ok(v) => v,
         Err(e) => match e {
@@ -72,7 +72,7 @@ async fn search_controller(
         },
     };
 
-    // レスポンス作成
+    // レスポンス 作成
     context.insert("keyword", q);
 
     let mut tracks = vec![];
