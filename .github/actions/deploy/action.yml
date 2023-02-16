@@ -39,7 +39,7 @@ runs:
       shell: bash
       run: |
         gcloud run deploy ${{ inputs.service }} \
-          --image ${{ inputs.image }}
+          --image ${{ inputs.image }} \
           --region asia-northeast1 \
           --no-traffic \
           --tag=${{ inputs.tag }}

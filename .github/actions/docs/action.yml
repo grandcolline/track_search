@@ -21,6 +21,7 @@ outputs:
   url:
     description: Upload URL
     value: ${{ steps.output.outputs.url }}
+
 runs:
   using: composite
   steps:
