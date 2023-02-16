@@ -27,7 +27,7 @@ impl TrackGateway {
 
 #[async_trait]
 impl TrackRepository for TrackGateway {
-    async fn find_by_id(&self, id: &str) -> Result<TrackEntity, ErrorKind> {
+    async fn read(&self, id: &str) -> Result<TrackEntity, ErrorKind> {
         let spotify = ClientCredsSpotify::new(self.creds.clone());
         spotify.request_token().await.unwrap();
 
@@ -66,7 +66,7 @@ impl TrackRepository for TrackGateway {
         ))
     }
 
-    async fn search(&self, key: &str) -> Result<Vec<TrackDto>, ErrorKind> {
+    async fn find_by_keyword(&self, key: &str) -> Result<Vec<TrackDto>, ErrorKind> {
         if key.is_empty() {
             return Err(ErrorKind::NotFound);
         }

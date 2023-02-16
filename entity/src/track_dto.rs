@@ -1,13 +1,13 @@
 // FIXME: どこの層におくべきかよく考える!!!!!!!!!
 #[derive(Debug, Clone)]
 pub struct TrackDto {
-    /// TrackID
+    /// Track ID
     pub id: String,
-    /// Track名
+    /// Track Name
     pub title: String,
-    /// アーティスト名
+    /// Artist Name
     pub artist: String,
-    /// Track画像URL
+    /// Track Image URL
     pub image: String,
 }
 

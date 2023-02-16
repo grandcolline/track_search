@@ -7,11 +7,8 @@ inputs:
   service_account:
     description: GCP Service Account (ex. xxxxx@xxxxx.iam.gserviceaccount.com)
     required: true
-  registry:
-    description: GAR docker registry
-    default: asia-northeast1-docker.pkg.dev
-  repository:
-    description: GAR docker repository.
+  image:
+    description: docker image (ex. asia-northeast1-docker.pkg.dev/gcp-project/xxxx/yyyy:tag)
     required: true
 
 runs:
@@ -31,14 +28,16 @@ runs:
     -
       name: Configure docker
       shell: bash
-      run: gcloud auth configure-docker ${{ inputs.registry }}
+      run: |
+        # image の最初の / まで(asia-northeast1-docker.pkg.dev など) を抜き出して認証
+        echo ${{ inputs.image }} | cut -d '/' -f1 | xargs gcloud auth configure-docker
     -
       name: Build and Push
       id: build-and-push
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v4
       with:
         push: true
-        tags: ${{ inputs.registry }}/${{ inputs.repository }}:${{ github.sha }}
+        tags: ${{ inputs.image }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
 

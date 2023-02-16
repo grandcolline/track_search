@@ -23,26 +23,8 @@ jobs:
       name: Format
       run: cargo fmt --check
 
-  compile:
-    name: Compile
-    runs-on: ubuntu-latest
-    steps:
-    -
-      name: Checkout
-      uses: actions/checkout@v3
-    -
-      name: Setup
-      uses: ./.github/actions/setup
-      with:
-        cache_key: compile
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-    -
-      name: Compile
-      run: cargo check
-
   lint:
     name: Lint
-    needs: compile
     runs-on: ubuntu-latest
     steps:
     -
@@ -60,7 +42,6 @@ jobs:
 
   test:
     name: Test
-    needs: compile
     runs-on: ubuntu-latest
     steps:
     -
@@ -93,7 +74,7 @@ jobs:
       with:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
-        repository: ${{ secrets.GAR_REPOSITORY }}
+        image: ${{ secrets.GAR_REGISTRY }}:${{ github.event.pull_request.head.sha }}
 
   deploy:
     name: Deploy
@@ -112,7 +93,7 @@ jobs:
       with:
         identify_provider: ${{ secrets.IDENTIFY_PROVIDER }}
         service_account: ${{ secrets.SERVICE_ACCOUNT }}
-        repository: ${{ secrets.GAR_REPOSITORY }}
+        image: ${{ secrets.GAR_REGISTRY }}:${{ github.event.pull_request.head.sha }}
         tag: pr${{ github.event.number}} # pr number
 
   docs:

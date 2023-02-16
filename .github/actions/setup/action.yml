@@ -26,9 +26,7 @@ runs:
           build-cache-${{ github.sha }}-
           build-cache-
     -
-      name: Protoc
-      uses: arduino/setup-protoc@v1
-      with:
-        version: '3.x'
-        repo-token: ${{ inputs.github_token }}
+      name: Install Protoc
+      run: sudo apt install -y protobuf-compiler
+      shell: bash
 

@@ -1,8 +1,8 @@
 pub trait Log {
-    /// DEBUGログを出力する
+    /// print log message of DEBUG level
     fn debug(&self, s: &str);
-    /// INFOログを出力する
+    /// print log message of INFO  level
     fn info(&self, s: &str);
-    /// ERRORログを出力する
+    /// print log message of ERROR level
     fn error(&self, s: &str);
 }

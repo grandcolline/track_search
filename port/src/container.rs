@@ -1,6 +1,5 @@
 use std::sync::Arc;
 
-// FIXME: crate内の参照の仕方ってこれでいいんだっけ？
 use crate::log::Log;
 use crate::repository::TrackRepository;
 
